@@ -1,0 +1,19 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "34ec7d21-7026-4230-8659-e414bc456131")
+	(paper "A3")
+	(title_block
+		(title "IMU-RC Car")
+		(date "2024-10-18")
+		(rev "1.0")
+		(company "ESTG-IPL")
+	)
+	(lib_symbols)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)
