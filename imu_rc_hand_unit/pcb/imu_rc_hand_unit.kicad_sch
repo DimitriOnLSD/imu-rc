@@ -11453,7 +11453,7 @@
 				)
 			)
 		)
-		(property "Footprint" "MyLibrary:LED_D5.0mm-4_RKGB"
+		(property "Footprint" "IMURCLibrary:LED_D5.0mm-4_RKGB"
 			(at 222.25 97.79 0)
 			(effects
 				(font
