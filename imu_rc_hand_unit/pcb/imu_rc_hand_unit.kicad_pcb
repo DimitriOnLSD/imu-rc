@@ -27611,6 +27611,54 @@
 		(layer "Margin")
 		(uuid "78c17c15-0348-4da6-bdce-d8ec27574795")
 	)
+	(gr_text "JLCJLCJLCJLC"
+		(at 20.67 64.17 -90)
+		(layer "B.SilkS")
+		(uuid "1ce814df-d849-40fb-8ceb-3176b2612588")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom mirror)
+		)
+	)
+	(gr_text "IMU-RC \nHand Unit"
+		(at 48.27 50.29 0)
+		(layer "B.SilkS")
+		(uuid "a2591eae-11d2-46d7-90ed-369256012145")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left mirror)
+		)
+	)
+	(gr_text "ESTG-EEC \n24/25"
+		(at 48.2 56.22 0)
+		(layer "B.SilkS")
+		(uuid "f1e58eb4-c6e5-4e7c-9a60-6998ad475d4f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom mirror)
+		)
+	)
+	(gr_text "v1.0.0"
+		(at 37.84 26.43 -0)
+		(layer "F.SilkS")
+		(uuid "40932acd-1956-4052-b43f-1ac26d97ec3f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom)
+		)
+	)
 	(segment
 		(start 30.79 63.91)
 		(end 29.6 65.1)

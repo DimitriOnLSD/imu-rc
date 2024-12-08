@@ -640,7 +640,7 @@
       "plot": "Gerber files/",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "../../../Desktop/imu_rc_hand_unit.step",
+      "step": "../3d/imu_rc_hand_unit.step",
       "svg": "../../../Desktop/",
       "vrml": ""
     },
