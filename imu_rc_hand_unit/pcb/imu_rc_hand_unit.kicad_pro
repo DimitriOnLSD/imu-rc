@@ -611,7 +611,8 @@
       "Net-(D6-K)": "POWER",
       "Net-(U1-VBUS)": "POWER",
       "Net-(U3-BAT)": "POWER",
-      "Net-(U5-3V3)": "POWER"
+      "Net-(U5-3V3)": "POWER",
+      "Net-(U6-VBUS)": "POWER"
     },
     "netclass_patterns": [
       {
