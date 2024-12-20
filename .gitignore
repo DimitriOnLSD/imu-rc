@@ -33,3 +33,18 @@
 
 # Sketchup 
 *.skb
+
+# VisualStudio Code
+.pio
+imu_rc_car/.vscode/c_cpp_properties.json
+imu_rc_car/.vscode/extensions.json
+imu_rc_car/.vscode/launch.json
+imu_rc_hand_unit/.vscode/c_cpp_properties.json
+imu_rc_hand_unit/.vscode/extensions.json
+imu_rc_hand_unit/.vscode/launch.json
+imu_rc_hand_unit/include/README
+imu_rc_car/include/README
+imu_rc_car/lib/README
+imu_rc_hand_unit/test/README
+imu_rc_hand_unit/lib/README
+imu_rc_hand_unit/pcb/~imu_rc_hand_unit.kicad_sch.lck
