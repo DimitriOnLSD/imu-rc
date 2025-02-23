@@ -62,23 +62,6 @@ class MyCallbacks : public BLECharacteristicCallbacks {
   }
 };
 
-// Function to setup the motor control pins
-void setupPins() {
-  pinMode(MOTOR_A1_PIN, OUTPUT);
-  pinMode(MOTOR_A2_PIN, OUTPUT);
-  pinMode(MOTOR_B1_PIN, OUTPUT);
-  pinMode(MOTOR_B2_PIN, OUTPUT);
-  ledcSetup(MOTOR_A1_CHANNEL, FREQUENCY, RESOLUTION);
-  ledcSetup(MOTOR_A2_CHANNEL, FREQUENCY, RESOLUTION);
-  ledcSetup(MOTOR_B1_CHANNEL, FREQUENCY, RESOLUTION);
-  ledcSetup(MOTOR_B2_CHANNEL, FREQUENCY, RESOLUTION);
-  ledcAttachPin(MOTOR_A1_PIN, MOTOR_A1_CHANNEL);
-  ledcAttachPin(MOTOR_A2_PIN, MOTOR_A2_CHANNEL);
-  ledcAttachPin(MOTOR_B1_PIN, MOTOR_B1_CHANNEL);
-  ledcAttachPin(MOTOR_B2_PIN, MOTOR_B2_CHANNEL);
-  move(0);
-}
-
 void move(uint8_t state) {
   switch (state) {
     case 0:                            // Stop (coast)
@@ -112,6 +95,23 @@ void move(uint8_t state) {
       ledcWrite(MOTOR_B2_CHANNEL, speed_RM);  // L
       break;
   }
+}
+
+// Function to setup the motor control pins
+void setupPins() {
+  pinMode(MOTOR_A1_PIN, OUTPUT);
+  pinMode(MOTOR_A2_PIN, OUTPUT);
+  pinMode(MOTOR_B1_PIN, OUTPUT);
+  pinMode(MOTOR_B2_PIN, OUTPUT);
+  ledcSetup(MOTOR_A1_CHANNEL, FREQUENCY, RESOLUTION);
+  ledcSetup(MOTOR_A2_CHANNEL, FREQUENCY, RESOLUTION);
+  ledcSetup(MOTOR_B1_CHANNEL, FREQUENCY, RESOLUTION);
+  ledcSetup(MOTOR_B2_CHANNEL, FREQUENCY, RESOLUTION);
+  ledcAttachPin(MOTOR_A1_PIN, MOTOR_A1_CHANNEL);
+  ledcAttachPin(MOTOR_A2_PIN, MOTOR_A2_CHANNEL);
+  ledcAttachPin(MOTOR_B1_PIN, MOTOR_B1_CHANNEL);
+  ledcAttachPin(MOTOR_B2_PIN, MOTOR_B2_CHANNEL);
+  move(0);
 }
 
 void setup() {

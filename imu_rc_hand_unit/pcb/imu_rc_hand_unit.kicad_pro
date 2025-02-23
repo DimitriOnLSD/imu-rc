@@ -641,7 +641,7 @@
       "pos_files": "",
       "specctra_dsn": "",
       "step": "../3d/imu_rc_hand_unit.step",
-      "svg": "../../../Desktop/",
+      "svg": "../../../../../Desktop/",
       "vrml": ""
     },
     "page_layout_descr_file": ""
