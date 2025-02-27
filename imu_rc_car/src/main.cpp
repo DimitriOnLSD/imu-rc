@@ -25,6 +25,8 @@
 #define SPEED_MIN 0
 #define SPEED_STEP 10
 
+#define SEND_BATTERY_FREQUENCY 1
+
 #define DEBUG
 
 // Global variable to store received data
@@ -32,6 +34,8 @@ String receivedData = "";
 String function = "";
 uint8_t speed_LM = 0;
 uint8_t speed_RM = 0;
+uint8_t batteryPercentage = 0;
+double batteryVoltage = 0.0;
 
 // BLECharacteristic pointer for notifications
 BLECharacteristic *pCharacteristic;
@@ -171,6 +175,9 @@ void sendNotificationToClient(String data) {
 }
 
 void loop() {
+  unsigned long currentTime = millis();
+  static unsigned long lastSendTime = 0;
+
   if (!receivedData.isEmpty()) {  // Check if receivedData is not empty
 #ifdef DEBUG
     Serial.println("Processing command: " + receivedData);
@@ -184,8 +191,6 @@ void loop() {
       move(3);
     } else if (function.equals("LEFT")) {
       move(4);
-    } else if (function.equals("REQUEST BATTERY")) {
-      sendNotificationToClient("Battery level is XX.");
     } else if (function.equals("STOP")) {
       move(0);
     } else {
@@ -196,4 +201,42 @@ void loop() {
     }
     receivedData = "";  // Clear after processing to avoid re-triggering
   }
+  
+  if (currentTime - lastSendTime > 1 / SEND_BATTERY_FREQUENCY * 1000) {
+    lastSendTime = currentTime;
+    sendNotificationToClient(String(batteryPercentage, 0));
+  }
+
+  batteryPercentage += 1;
+  if (batteryPercentage > 100) {
+    batteryPercentage = 0;
+  }
+  
+
+  // future development
+
+  // uint8_t command;
+  // switch(command) {
+  //   case 0: // STOP
+  //     move(0);
+  //     break;
+  //   case 1: // FORWARD
+  //     move(1);
+  //     break;
+  //   case 2: // REVERSE
+  //     move(2);
+  //     break;
+  //   case 3: // RIGHT
+  //     move(3);
+  //     break;
+  //   case 4: // LEFT
+  //     move(4);
+  //     break;
+  //   case 5: // REQUEST BATTERY
+  //     sendNotificationToClient(String(batteryPercentage, 0));
+  //     break;
+  //   default:
+  //     sendNotificationToClient("Invalid command");
+  //     break;
+  // }
 }
