@@ -1,57 +1,46 @@
+/* DEBUG AND DEVELOPMENT PURPOSE ONLY */
+#define DEBUG true
+#define DEV_BOARD true
+
 #include "main.h"
 
 void setup() {
-#if (DEBUG == true)
-  Serial.begin(115200);
-#endif
-  // setupBattery();
-  // setupLED();
+  setupSerial();
+  setupLED();
+  setupBattery();
   setupI2C();
   setupOLED();
   setupMPU6050();
   setupBLE();
 
-  display.clearDisplay();
-  display.fillRect(TOP_BAR_LINE_X, TOP_BAR_LINE_Y, TOP_BAR_LINE_W, TOP_BAR_LINE_H, SSD1306_WHITE);
-
-  drawBattery(BATTERY_POS_X, BATTERY_POS_Y, getBatteryLevel());
-  drawMenu(mainMenuText, MAIN_MENU_ITEMS, selectedMainMenuItem);
-
+  displayHUD(batteryBars(enableBattRead()), 0);
   display.display();
 }
 
 void loop() {
-  double yaw;
-  double pitch;
-  double roll;
+  static unsigned long lastReadTime = 0;
   static unsigned long lastSendTime = 0;
   static unsigned long lastMenuTime = 0;
   unsigned long currentTime = millis();
+  uint8_t battPercentage;
   char input;
-  uint8_t barsBattery = getBatteryLevel();
-  uint8_t RSSI = 0;
 
-#if (DISABLE_DISPLAY == false)
+  // Save battery by having a fixed data read frequency
+  if (currentTime - lastReadTime > 1 / BATT_DATA_FREQUENCY * 1000) {
+    lastReadTime = currentTime;
+
+    // Read battery level
+    uint16_t battData = enableBattRead();
+    double battVoltage = batteryVoltage(battData);
+    uint8_t battPercentage = batteryPercentage(battVoltage);
+    barsBattery = batteryBars(battData);
+
+    debugPrint(false, 0, 0, 0, "Battery level: " + String(battPercentage) + "%");
+  }
+
   // Save battery by having a fixed menu display frequency
   if (currentTime - lastMenuTime > 1 / DISPLAY_MENU_FREQUENCY * 1000) {
     lastMenuTime = currentTime;
-
-    // Set LED status based on battery level
-    if (digitalRead(PIN_CHARGER_STATUS) == HIGH) {
-      // Charging and reached 100% or charging and not reached 100%
-      if (batteryPercentage == 100) {
-        SetLEDStatus("GREEN", "ON");
-      } else {
-        SetLEDStatus("YELLOW", "ON");
-      }
-    } else {
-      // Not charging. When below 20%, blink red. Otherwise, solid red.
-      if (batteryPercentage <= 20) {
-        SetLEDStatus("RED", "BLINK");
-      } else {
-        SetLEDStatus("RED", "ON");
-      }
-    }
 
     if (Serial.available() || clientIsScanning) {
       if (!clientIsScanning)
@@ -70,7 +59,7 @@ void loop() {
               previousMenu = currentMenu;
               switch (selectedMainMenuItem) {
                 case 0:  // Start scanning for BLE servers
-                  clientIsScanning = true;                  
+                  clientIsScanning = true;
                   currentMenu = SCANNING;
                   break;
                 case 1:  // Settings
@@ -88,10 +77,10 @@ void loop() {
             case 's':  // Navigate down
               navigateDown(selectedConnectedMenuItem, CONNECTED_MENU_ITEMS);
               break;
-            case 32: // Select menu
+            case 32:  // Select menu
               previousMenu = currentMenu;
               switch (selectedConnectedMenuItem) {
-                case 0:  // Control type                  
+                case 0:  // Control type
                   currentMenu = CONTROL_TYPE_MENU;
                   break;
                 case 1:  // Car stats
@@ -112,6 +101,7 @@ void loop() {
               break;
             default:
               RSSI = pClient->getRssi();
+              debugPrint(false, 0, 0, 0, "RSSI: " + String(RSSI));
               break;
           }
           break;
@@ -129,7 +119,7 @@ void loop() {
             case 32:  // Select menu
               previousMenu = currentMenu;
               switch (selectedSettingsMenuItem) {
-                case 0:  // Set inertial sensitivity                  
+                case 0:  // Set inertial sensitivity
                   currentMenu = INERTIAL_SENSITIVITY;
                   break;
                 case 1:  // Reset IMU
@@ -139,7 +129,7 @@ void loop() {
                 case 2:  // Print data
                   currentMenu = DATA_PRINT;
                   break;
-                case 3: // LED info
+                case 3:  // LED info
                   currentMenu = LED_INFO;
                   break;
               }
@@ -159,7 +149,7 @@ void loop() {
               break;
             case 32:  // Select menu
               switch (selectedControlTypeMenuItem) {
-                case 0:  // Dual Motor                
+                case 0:  // Dual Motor
                   controlType = 0;
                   break;
                 case 1:  // Quad Motor
@@ -177,16 +167,16 @@ void loop() {
           currentMenu = scanForServer() ? CONNECTED_MENU : NOT_FOUND;
           break;
         case INERTIAL_SENSITIVITY:
-          switch(input) {
+          switch (input) {
             case 32:
             case 9:
               currentMenu = previousMenu;
               break;
             case 'w':
-              sensitivity += 0.1f;
+              sensitivity = increase(sensitivity, 0.1f, sens_max);
               break;
             case 's':
-              sensitivity -= 0.1f;
+              sensitivity = decrease(sensitivity, 0.1f, sens_min);
               break;
           }
           break;
@@ -198,23 +188,18 @@ void loop() {
         case LED_INFO:
         case CAR_STATS:
         case LOST_CONNECTION:
-          switch(input) {
+          switch (input) {
             case 32:
             case 9:
               currentMenu = currentMenu == LOST_CONNECTION ? MAIN_MENU : previousMenu;
               break;
           }
-          break;       
+          break;
       }
     }
 
-    sensitivity = (float) constrain(sensitivity, 0.1f, 2.0f);
+    displayHUD(barsBattery, RSSI);
 
-    display.clearDisplay();
-    display.fillRect(TOP_BAR_LINE_X, TOP_BAR_LINE_Y, TOP_BAR_LINE_W, TOP_BAR_LINE_H, SSD1306_WHITE);
-    drawBattery(BATTERY_POS_X, BATTERY_POS_Y, barsBattery);      
-    drawSignalStrength(RSSI);
-    
     // Render the current menu
     switch (currentMenu) {
       case MAIN_MENU:
@@ -240,25 +225,25 @@ void loop() {
         drawText("Failed to connect.", 1, -1, -1);
         break;
       case CAR_STATS:
-        drawText("Battery level:", 1, -1, -1);
+        drawText("Battery level:" + serverBatteryPercentage, 1, -1, -1);
         break;
       case INERTIAL_SENSITIVITY:
         drawSensitivityBar(sensitivity);
         drawText("Sensitivity: " + String(sensitivity, 1), 1, -1, 56);
         break;
       case LED_INFO:
-        drawText("RED:ON",          1, -1, 16);      
-        drawText("YELLOW:CHARGING", 1, -1, 26); 
-        drawText("GREEN:CHARGED",   1, -1, 36); 
-        drawText("BLUE:SCAN",       1, -1, 46); 
-        drawText("WHITE:RESET",     1, -1, 56);
+        drawText("RED:ON", 1, -1, 16);
+        drawText("YELLOW:CHARGING", 1, -1, 26);
+        drawText("GREEN:CHARGED", 1, -1, 36);
+        drawText("BLUE:SCAN", 1, -1, 46);
+        drawText("WHITE:RESET", 1, -1, 56);
         break;
-      case DATA_PRINT:  
-        drawText("yaw: "   + String((float) yaw,   1), 1, -1, 16);
-        drawText("pitch: " + String((float) pitch, 1), 1, -1, 24);
-        drawText("roll: "  + String((float) roll,  1), 1, -1, 32);
-        drawText("data: "  + dataToSend, 1, -1, 40);
-        break;	
+      case DATA_PRINT:
+        drawText("yaw: " + String((double)yaw, 1), 1, -1, 16);
+        drawText("pitch: " + String((double)pitch, 1), 1, -1, 24);
+        drawText("roll: " + String((double)roll, 1), 1, -1, 32);
+        drawText("data: " + dataToSend, 1, -1, 40);
+        break;
       case LOST_CONNECTION:
         drawText("Lost connection.", 1, -1, -1);
         break;
@@ -279,9 +264,7 @@ void loop() {
 
     display.display();
   }
-#endif
 
-#if (DISABLE_BLE == false)
   // Save battery by having a fixed data send frequency
   if (currentTime - lastSendTime > 1 / BLE_DATA_FREQUENCY * 1000) {
     lastSendTime = currentTime;
@@ -313,7 +296,7 @@ void loop() {
         roll = ypr[2] * 180 / M_PI;
 
         // If the car is stopped, apply rotation logic. If not, apply movement logic
-        if (stopped) {
+        if (carIsStopped) {
           if (positiveTilt(pitch) && !negativeTilt(roll) && !positiveTilt(roll)) {
             motorCommand(0, DUTY_CYCLE_MAX, "LEFT");
             canMoveYAxis = false;
@@ -321,11 +304,11 @@ void loop() {
             motorCommand(DUTY_CYCLE_MAX, 0, "RIGHT");
             canMoveYAxis = false;
           } else {
-            stopped = false;
+            carIsStopped = false;
             canMoveYAxis = true;
           }
         } else {
-          stopped = true;
+          carIsStopped = true;
           canMoveYAxis = true;
           canMoveXAxis = true;
           motorCommand(0, 0, "STOP");
@@ -334,19 +317,19 @@ void loop() {
         // If postive tilt, move forward. If negative tilt, move backward
         if (canMoveYAxis) {
           if (positiveTilt(roll)) {
-            stopped = false;
+            carIsStopped = false;
 
             roll = constraintAngle(roll, THRESHOLD_MAX);
-            uint8_t speed = (uint8_t)map(abs(roll), THRESHOLD, THRESHOLD_MAX, DUTY_CYCLE_MIN, DUTY_CYCLE_MAX);
+            uint8_t speed = (uint8_t)map(abs(roll), THRESHOLD_MIN, THRESHOLD_MAX, DUTY_CYCLE_MIN, DUTY_CYCLE_MAX);
             motorCommand(speed, speed, "REVERSE");
           } else if (negativeTilt(roll)) {
-            stopped = false;
+            carIsStopped = false;
 
             roll = constraintAngle(roll, THRESHOLD_MAX);
             pitch = constraintAngle(pitch, THRESHOLD_MAX);
-            uint8_t speed = (uint8_t)map(abs(roll), THRESHOLD, THRESHOLD_MAX, DUTY_CYCLE_MIN, DUTY_CYCLE_MAX);
-            uint8_t LS = positiveTilt(pitch) ? speed - map(abs(pitch), THRESHOLD_STEERING, THRESHOLD_MAX, 0, speed) : speed;
-            uint8_t RS = negativeTilt(pitch) ? speed - map(abs(pitch), THRESHOLD_STEERING, THRESHOLD_MAX, 0, speed) : speed;
+            uint8_t speed = (uint8_t)map(abs(roll), THRESHOLD_MIN, THRESHOLD_MAX, DUTY_CYCLE_MIN, DUTY_CYCLE_MAX);
+            uint8_t LS = positiveTilt(pitch) ? speed - map(abs(pitch), THRESHOLD_MIN_STEER, THRESHOLD_MAX, 0, speed) : speed;
+            uint8_t RS = negativeTilt(pitch) ? speed - map(abs(pitch), THRESHOLD_MIN_STEER, THRESHOLD_MAX, 0, speed) : speed;
             motorCommand(LS, RS, "FORWARD");
           }
         }
@@ -372,5 +355,12 @@ void loop() {
       }
     }
   }
-#endif
+
+  // Set LED status based on battery level
+  if (checkCharging()) {
+    battPercentage >= 95 ? SetLEDStatus("GREEN", "ON") : SetLEDStatus("YELLOW", "ON");
+  } else {
+    if (currentMenu != SCANNING && currentMenu != RESET)
+    battPercentage <= 20 ? SetLEDStatus("RED", "BLINK") : SetLEDStatus("RED", "ON");
+  }
 }

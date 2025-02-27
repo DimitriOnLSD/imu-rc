@@ -1,18 +1,24 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-/* DEBUG PURPOSE ONLY */
-#define DEBUG true
-#define DISABLE_DISPLAY false
-#define DISABLE_BLE false
-///////////////////////////////////////////////////////////////////////////////
 #define SERVICE_UUID BLEUUID("3e3f1b05-90a8-43af-aa6b-335b28282b57")
 #define CHARACTERISTIC_UUID BLEUUID("3e2c8a88-90fd-4b6b-b947-997e80d03d5b")
 ///////////////////////////////////////////////////////////////////////////////
 #define SCAN_DURATION 5            // Seconds
 #define DISPLAY_MENU_FREQUENCY 10  // Hz
 #define BLE_DATA_FREQUENCY 20
+#define BATT_DATA_FREQUENCY 0.2
 ///////////////////////////////////////////////////////////////////////////////
+#if (DEV_BOARD == true)
+#define PIN_NEOPIXEL 48 // LED_BUILTIN
+#define PIN_BUTTON_UP 5 // K1
+#define PIN_BUTTON_DOWN 6 // K2
+#define PIN_BUTTON_SELECT 7 // K3
+#define PIN_BUTTON_BACK 15 // K4
+#define PIN_BATTERY_READ 16 // ADC2_5
+#define PIN_BATTERY_ENABLE_READ 17
+#define PIN_CHARGER_STATUS 18
+#else
 #define PIN_RGB_RED 6
 #define PIN_RGB_GREEN 5
 #define PIN_RGB_BLUE 4
@@ -20,12 +26,13 @@
 #define PIN_BUTTON_UP 16
 #define PIN_BUTTON_SELECT 17
 #define PIN_BUTTON_DOWN 18
+#define PIN_BATTERY_READ 17 // ADC2_6
 #define PIN_BATTERY_ENABLE_READ 21
-#define PIN_BATTERY_READ 14
 #define PIN_CHARGER_STATUS 7
+#endif
 ///////////////////////////////////////////////////////////////////////////////
-#define THRESHOLD 10.0  // Threshold for the angular position. Variable in Euler angles
-#define THRESHOLD_STEERING 5.0
+#define THRESHOLD_MIN_STEER 5.0
+#define THRESHOLD_MIN 10.0  // Threshold for the angular position. Variable in Euler angles
 #define THRESHOLD_MAX 40.0
 ///////////////////////////////////////////////////////////////////////////////
 #define DUTY_CYCLE_MIN 170  // PWM duty cycle
@@ -53,7 +60,7 @@
 #define RSSI_BAR_WIDTH 4
 #define RSSI_BAR_SPACING 1
 ///////////////////////////////////////////////////////////////////////////////
-#define SNSV_NUM_BARS 20 
+#define SNSV_NUM_BARS 20
 #define SNSV_BAR_POS_X 16
 #define SNSV_BAR_POS_Y 48
 #define SNSV_BAR_WIDTH 4
@@ -63,58 +70,6 @@
 #define TOP_BAR_LINE_Y 14
 #define TOP_BAR_LINE_W 128
 #define TOP_BAR_LINE_H 1
-
-// Define menu structures
-enum MenuState { MAIN_MENU,
-                 CONNECTED_MENU,
-                 SETTINGS_MENU,
-                 CONTROL_TYPE_MENU,
-                 SCANNING,
-                 CONNECTING,
-                 NOT_FOUND,
-                 FAILED,
-                 CAR_STATS,
-                 INERTIAL_SENSITIVITY,
-                 DATA_PRINT,
-                 LED_INFO, 
-                 LOST_CONNECTION, 
-                 RESET, 
-                 RESET_COMPLETED,
-                 RESET_FAILED };
-MenuState currentMenu = MAIN_MENU;
-MenuState previousMenu = MAIN_MENU;
-
-#define MAIN_MENU_ITEMS 2
-const char *mainMenuText[MAIN_MENU_ITEMS] = {
-  "Connect",
-  "Settings"
-};
-int selectedMainMenuItem = 0;
-
-#define CONNECTED_MENU_ITEMS 4
-const char *connectedMenuText[CONNECTED_MENU_ITEMS] = {
-  "Control type",
-  "Car stats",
-  "Settings",
-  "Disconnect"
-};
-int selectedConnectedMenuItem = 0;
-
-#define SETTINGS_MENU_ITEMS 4
-const char *settingsMenuText[SETTINGS_MENU_ITEMS] = {
-  "Inertial sensitivity",
-  "Reset IMU",
-  "Data print",
-  "LED info"
-};
-int selectedSettingsMenuItem = 0;
-
-#define CONTROL_TYPE_MENU_ITEMS 3
-const char *controlTypeMenuText[CONTROL_TYPE_MENU_ITEMS] = {
-  "Dual Motor",
-  "Quad Motor",
-  "Omni-directional"};
-int selectedControlTypeMenuItem = 0;
 
 #include <Arduino.h>
 #include <Wire.h>
@@ -127,6 +82,11 @@ int selectedControlTypeMenuItem = 0;
 #include <BLEAdvertisedDevice.h>
 #include "I2Cdev.h"
 #include "MPU6050_6Axis_MotionApps20.h"
+
+#if (DEV_BOARD == true)
+#include <Adafruit_NeoPixel.h>
+Adafruit_NeoPixel pixels(1, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
+#endif
 
 // Define the display, Bluetooth Low-Energy and IMU Sensor objects
 Adafruit_SSD1306 display(OLED_SCREEN_WIDTH, OLED_SCREEN_HEIGHT, &Wire, OLED_RESET);
@@ -141,22 +101,27 @@ bool clientLostConnection = false;
 bool clientConnectionAttempt = false;
 bool clientIsScanning = false;
 bool printOnce = true;
-bool stopped = true;        // Flag to indicate the car is stopped
-bool rotating = false;      // Flag to indicate the car is rotating
-bool canMoveXAxis = false;  // Flag to enable movement in the X-axis
-bool canMoveYAxis = true;   // Flag to enable movement in the Y-axis
-bool movingXAxis = false;   // Flag to indicate movement in the X-axis
-bool movingYAxis = false;   // Flag to indicate movement in the Y-axis
-uint8_t controlType = 0;    // Control type for the car
+bool carIsStopped = true;    // Flag to indicate the car is stopped
+bool carIsRotating = false;  // Flag to indicate the car is rotating
+bool canMoveXAxis = false;   // Flag to enable movement in the X-axis
+bool canMoveYAxis = true;    // Flag to enable movement in the Y-axis
+bool movingXAxis = false;    // Flag to indicate movement in the X-axis
+bool movingYAxis = false;    // Flag to indicate movement in the Y-axis
+
+uint8_t barsBattery = 0;
+uint8_t RSSI = 0;
+
+String dataToSend;
+uint8_t serverBatteryPercentage = 0;
+uint8_t controlType = 0;  // Control type for the car
 
 float sensitivity = 1.0f;  // Sensitivity for the inertial sensor
-float batteryVoltage = 0;       // Battery voltage in volts
-uint8_t batteryPercentage = 0;  // Battery percentage
+const float sens_max = 2.0f;
+const float sens_min = 0.1f;
 
 /*---MPU6050 Control/Status Variables---*/
 bool DMPReady = false;   // Set true if DMP init was successful
 bool resetYPR = false;   // Flag for resetting Yaw/Pitch/Roll
-bool resetMPUDone = false;  // Flag for resetting the MPU
 uint8_t MPUIntStatus;    // Holds actual interrupt status byte from MPU
 uint8_t devStatus;       // Return status after each device operation (0 = success, !0 = error)
 uint16_t packetSize;     // Expected DMP packet size (default is 42 bytes)
@@ -171,12 +136,12 @@ VectorInt16 aaWorld;  // [x, y, z]            World-frame accel sensor measureme
 VectorFloat gravity;  // [x, y, z]            Gravity vector
 float euler[3];       // [psi, theta, phi]    Euler angle container
 float ypr[3];         // [yaw, pitch, roll]   Yaw/Pitch/Roll container and gravity vector
+double yaw;
+double pitch;
+double roll;
 
 /*-Packet structure for InvenSense teapot demo-*/
 uint8_t teapotPacket[14] = { '$', 0x02, 0, 0, 0, 0, 0, 0, 0, 0, 0x00, 0x00, '\r', '\n' };
-
-/*---Variables for BLE communication---*/
-String dataToSend;
 
 // Function to print data to the serial monitor
 void debugPrint(bool printData, double yaw, double pitch, double roll, String data) {
@@ -196,200 +161,14 @@ void debugPrint(bool printData, double yaw, double pitch, double roll, String da
 #endif
 }
 
-/*------Interrupt detection routine------*/
-volatile bool MPUInterrupt = false;  // Indicates whether MPU6050 interrupt pin has gone high
-void DMPDataReady() {
-  MPUInterrupt = true;
+// Function to setup the serial monitor
+void setupSerial() {
+#if (DEBUG == true)
+  Serial.begin(115200);
+#endif
 }
 
-int getBatteryLevel() {
-  // Read battery voltage
-  digitalWrite(PIN_BATTERY_ENABLE_READ, HIGH);
-  uint16_t analogBits = analogRead(PIN_BATTERY_READ);
-  digitalWrite(PIN_BATTERY_ENABLE_READ, LOW);
-
-  batteryVoltage = analogBits * 4.2 / 4095;
-  batteryPercentage = map(batteryVoltage, 3.7, 4.2, 0, 100);
-  batteryPercentage = constrain(batteryPercentage, 0, 100);
-
-  int bars = (float)map(analogBits, 0, 4095, 0, 4);
-
-  return bars;
-}
-
-/*
-OFF         : No LED color
-BATTERY     : Red
-LOW BATTERY : Red blinking
-CHARGING    : Yellow
-CHARGED     : Green
-SCANNING    : Blue blinking
-PAIRING     : Blue
-IMU RESET   : White blinking
-*/
-
-// Helper function to set the LED color
-void setColor(const char *color) {
-  bool red = LOW, green = LOW, blue = LOW;
-
-  if (strcmp(color, "RED") == 0) {
-    red = HIGH;
-  } else if (strcmp(color, "GREEN") == 0) {
-    green = HIGH;
-  } else if (strcmp(color, "BLUE") == 0) {
-    blue = HIGH;
-  } else if (strcmp(color, "YELLOW") == 0) {
-    red = HIGH;
-    green = HIGH;
-  } else if (strcmp(color, "PURPLE") == 0) {
-    red = HIGH;
-    blue = HIGH;
-  } else if (strcmp(color, "WHITE") == 0) {
-    red = HIGH;
-    green = HIGH;
-    blue = HIGH;
-  }
-
-  // Set the pins accordingly
-  digitalWrite(PIN_RGB_RED, red);
-  digitalWrite(PIN_RGB_GREEN, green);
-  digitalWrite(PIN_RGB_BLUE, blue);
-}
-
-void SetLEDStatus(const char *color, const char *mode) {
-  static unsigned long previousMillis = 0;  // Tracks the last time the LED toggled
-  static bool ledState = false;             // Current state of the LED
-
-  unsigned long currentMillis = millis();   // Current time in milliseconds
-  const unsigned long blinkInterval = 500;  // Interval for blinking (in milliseconds)
-
-  // Determine LED mode
-  if (strcmp(mode, "BLINK") == 0) {
-    // Handle blinking logic
-    if (currentMillis - previousMillis >= blinkInterval) {
-      previousMillis = currentMillis;
-      ledState = !ledState;  // Toggle the LED state
-    }
-
-    // Set the LED based on the toggled state
-    if (ledState) {
-      setColor(color);
-    } else {
-      // Turn off the LED
-      digitalWrite(PIN_RGB_RED, LOW);
-      digitalWrite(PIN_RGB_GREEN, LOW);
-      digitalWrite(PIN_RGB_BLUE, LOW);
-    }
-
-  } else if (strcmp(mode, "ON") == 0) {
-    // Set the LED to the specified color in ON mode
-    setColor(color);
-  } else {
-    // Turn off the LED for unsupported modes
-    digitalWrite(PIN_RGB_RED, LOW);
-    digitalWrite(PIN_RGB_GREEN, LOW);
-    digitalWrite(PIN_RGB_BLUE, LOW);
-  }
-}
-
-void drawSensitivityBar(float sensitivity) {
-  sensitivity *= 10;
-  for (int i = 0; i < 20; i++) {
-    if (i < sensitivity) {
-      display.fillRect(SNSV_BAR_POS_X + (SNSV_BAR_WIDTH + SNSV_BAR_SPACING) * i, SNSV_BAR_POS_Y - ((SNSV_BAR_WIDTH - 2) + i), SNSV_BAR_WIDTH, (SNSV_BAR_WIDTH - 2) + i, SSD1306_WHITE);
-    } else {
-      display.drawRect(SNSV_BAR_POS_X + (SNSV_BAR_WIDTH + SNSV_BAR_SPACING) * i, SNSV_BAR_POS_Y - ((SNSV_BAR_WIDTH - 2) + i), SNSV_BAR_WIDTH, (SNSV_BAR_WIDTH - 2) + i, SSD1306_WHITE);
-    }
-  }
-}
-
-// Draw menu
-void drawMenu(const char *menuItems[], int numItems, int selected) {
-  display.setTextSize(1);
-  for (int i = 0; i < numItems; i++) {
-    int16_t x1, y1;
-    uint16_t w, h;
-    display.getTextBounds(menuItems[i], 0, 0, &x1, &y1, &w, &h);
-    int xPos = (OLED_SCREEN_WIDTH - w) / 2;
-    int yPos = 16 + i * 12;
-    if (i == selected) {
-      display.fillRect(0, yPos - 2, OLED_SCREEN_WIDTH, h + 4, SSD1306_WHITE);
-      display.setTextColor(SSD1306_BLACK, SSD1306_WHITE);
-    } else {
-      display.setTextColor(SSD1306_WHITE, SSD1306_BLACK);
-    }
-    display.setCursor(xPos, yPos);
-    display.print(menuItems[i]);
-  }
-}
-
-// Draw text
-void drawText(String text, int size, int x, int y) {
-  display.setTextSize(size);
-  display.setTextColor(SSD1306_WHITE, SSD1306_BLACK);
-
-  int16_t x1, y1;
-  uint16_t w, h;
-  display.getTextBounds(text.c_str(), 0, 0, &x1, &y1, &w, &h);
-  // if x or y is -1, center the text
-  int xPos = x == -1 ? (OLED_SCREEN_WIDTH - w) / 2 : x;
-  int yPos = y == -1 ? (OLED_SCREEN_HEIGHT - h) / 2 : y;
-
-  display.setCursor(xPos, yPos);
-  display.print(text);
-}
-
-// Draw battery icon
-void drawBattery(int x, int y, int bars) {
-  display.drawRect(x, y, BATTERY_WIDTH, BATTERY_HEIGHT, SSD1306_WHITE);
-  for (int i = 0; i < bars; i++) {
-    display.fillRect(x + BATTERY_PADDING + i * (BATTERY_BAR_WIDTH + 1), y + BATTERY_PADDING, BATTERY_BAR_WIDTH, BATTERY_BAR_HEIGHT, SSD1306_WHITE);
-  }
-  display.fillRect(x + BATTERY_WIDTH, y + (BATTERY_HEIGHT / 2) - (BATTERY_NOTCH_H / 2), BATTERY_NOTCH_W, BATTERY_NOTCH_H, SSD1306_WHITE);
-}
-
-// Draw signal strength
-void drawSignalStrength(int numBars) {
-  for (int i = 0; i < RSSI_NUM_BARS; i++) {
-    uint8_t x = RSSI_BAR_POS_X + (RSSI_BAR_WIDTH + RSSI_BAR_SPACING) * i;
-    uint8_t y = RSSI_BAR_POS_Y - ((RSSI_BAR_WIDTH - 2) * 2 + i * 2);
-    uint8_t w = RSSI_BAR_WIDTH;
-    uint8_t h = (RSSI_BAR_WIDTH - 2) * 2 + i * 2;
-    if (i < numBars) {
-      display.fillRect(x, y, w, h, SSD1306_WHITE);
-    } else {
-      display.drawRect(x, y, w, h, SSD1306_WHITE);
-    }
-  }
-}
-
-/*---Function prototypes---*/
-bool resetMPU() {
-  q = Quaternion(1, 0, 0, 0);
-  gravity = VectorFloat(0, 0, 0);
-
-  DMPReady = false;
-  mpu.dmpInitialize();
-
-  // Reset offsets and re-enable DMP
-  mpu.setXGyroOffset(0);
-  mpu.setYGyroOffset(0);
-  mpu.setZGyroOffset(0);
-  mpu.setXAccelOffset(0);
-  mpu.setYAccelOffset(0);
-  mpu.setZAccelOffset(0);
-  mpu.CalibrateAccel(6);
-  mpu.CalibrateGyro(6);
-  mpu.setDMPEnabled(true);
-
-  DMPReady = true;
-  packetSize = mpu.dmpGetFIFOPacketSize();
-
-  if (packetSize == -1) 
-    return false;
-  return true;
-}
-
+// Function to setup the I2C communication
 void setupI2C() {
 #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
   Wire.begin();
@@ -399,137 +178,7 @@ void setupI2C() {
 #endif
 }
 
-void setupOLED() {
-  // Initialize the OLED display
-  if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_SCREEN_ADDRESS)) {
-    debugPrint(false, 0, 0, 0, "OLED SSD1306 initialization failed");
-    for (;;);
-  }
-  display.clearDisplay();
-  drawText("Initializing...", 1, -1, -1);
-  display.display();
-}
-
-void setupMPU6050() {
-  // Initialize the MPU6050
-  debugPrint(false, 0, 0, 0, "Initializing I2C for MPU6050...");
-  mpu.initialize();
-
-  // Verify MPU6050 connection
-  debugPrint(false, 0, 0, 0, "Testing MPU6050 connections...");
-  if (mpu.testConnection() == false) {
-    debugPrint(false, 0, 0, 0, "MPU6050 connection failed");
-    while (true);
-  } else {
-    debugPrint(false, 0, 0, 0, "MPU6050 connection successful");
-  }
-
-  // Initializate and configure the DMP
-  debugPrint(false, 0, 0, 0, "Initializing DMP...");
-  mpu.dmpInitialize();
-  
-  mpu.CalibrateAccel(6);
-  mpu.CalibrateGyro(6);
-  mpu.setDMPEnabled(true);
-
-  DMPReady = true;
-  packetSize = mpu.dmpGetFIFOPacketSize();  // Get expected DMP packet size for later comparison
-}
-
-// Callback function for BLE notifications
-static void notifyCallback(BLERemoteCharacteristic *pBLERemoteCharacteristic, uint8_t *pData, size_t length, bool isNotify) {
-  String notificationValue = "";
-  for (size_t i = 0; i < length; i++) {
-    notificationValue += (char)pData[i];
-  }
-  debugPrint(false, 0, 0, 0, "Notification received: " + notificationValue);
-}
-
-// Function to connect to the server and return the connected BLE client
-BLEClient *connectToServer(BLEAddress serverAddress) {
-  // Create a new BLE client instance
-  pClient = BLEDevice::createClient();
-
-  // Attempt to connect to the server using its address
-  debugPrint(false, 0, 0, 0, "Connecting to IMU-RC Car: ");
-  debugPrint(false, 0, 0, 0, serverAddress.toString().c_str());
-
-  if (pClient->connect(serverAddress)) {
-    debugPrint(false, 0, 0, 0, "Connected to IMU-RC Car.");
-    clientConnectionAttempt = true;
-    clientIsConnected = true;
-    clientIsScanning = false;
-  } else {
-    debugPrint(false, 0, 0, 0, "Failed to connect to IMU-RC Car.");
-    return nullptr;
-  }
-
-  // Check if the service exists on the server
-  BLERemoteService *pRemoteService = pClient->getService(SERVICE_UUID);
-  if (pRemoteService == nullptr) {
-    debugPrint(false, 0, 0, 0, "Failed to find IMU-RC Car service.");
-    pClient->disconnect();
-    return nullptr;
-  }
-
-  // Get the characteristic from the service
-  pRemoteCharacteristic = pRemoteService->getCharacteristic(CHARACTERISTIC_UUID);
-  if (pRemoteCharacteristic == nullptr) {
-    debugPrint(false, 0, 0, 0, "Failed to find IMU-RC Car characteristic.");
-    pClient->disconnect();
-    return nullptr;
-  }
-
-  // Register for notifications
-  if (pRemoteCharacteristic->canNotify()) {
-    pRemoteCharacteristic->registerForNotify(notifyCallback);
-    debugPrint(false, 0, 0, 0, "Registered for notifications.");
-  }
-
-  // Return the connected client
-  return pClient;
-}
-
-// Scan for the server and connect to it
-bool scanForServer() {
-  debugPrint(false, 0, 0, 0, "Scanning for IMU-RC Car servers...");
-
-  // Start BLE scan and look for devices
-  BLEScanResults results = pBLEScan->start(SCAN_DURATION);
-  for (int i = 0; i < results.getCount(); i++) {
-    BLEAdvertisedDevice device = results.getDevice(i);
-
-    // Check if the device advertises the service UUID we're looking for
-    if (device.haveServiceUUID() && device.isAdvertisingService(SERVICE_UUID)) {
-
-      display.clearDisplay();
-      drawText("Connecting...", 1, -1, -1);
-      display.display();
-      SetLEDStatus("BLUE", "ON");
-      debugPrint(false, 0, 0, 0, "Found IMU-RC Car. Attempting to connect...");
-
-      // Connect to the server
-      BLEClient *pClient = connectToServer(device.getAddress());
-      if (pClient != nullptr) {
-        pBLEScan->clearResults();  // Clear scan results
-        return true;               // Return true if connection is successful
-      }
-    }
-  }
-
-  pBLEScan->clearResults();  // Clear scan results
-  return false;              // Return false if no connection was made
-}
-
-/*---Setup BLE device---*/
-void setupBLE() {
-  // Initialize BLE device as a client
-  BLEDevice::init("IMU-RC Hand Unit");
-  pBLEScan = BLEDevice::getScan();  // Create BLE scan object
-  pBLEScan->setActiveScan(true);    // Enable active scanning
-}
-
-/*---Function to limit the angle---*/
+// Function to constrain the angle
 double constraintAngle(double angle, double limit) {
   if (angle > limit) {
     return limit;
@@ -540,15 +189,15 @@ double constraintAngle(double angle, double limit) {
   }
 }
 
-/*---Function prototypes---*/
+// Function to check if the tilt is positive or negative
 bool positiveTilt(double var) {
-  return (var > THRESHOLD);
+  return (var > THRESHOLD_MIN);
 }
 bool negativeTilt(double var) {
-  return (var < -THRESHOLD);
+  return (var < -THRESHOLD_MIN);
 }
 
-/*---Function to set the speed of the motors---*/
+// Function to send motor commands to the server
 void motorCommand(uint8_t leftSpeed, uint8_t rightSpeed, String direction) {
   dataToSend = direction + "," + leftSpeed + "," + rightSpeed;
 }
@@ -556,26 +205,26 @@ void functionCommand(String command) {
   dataToSend = command;
 }
 
-void navigateUp(int &selectedItem, int menuItems) {
-  selectedItem = (selectedItem - 1 + menuItems) % menuItems;
+// Function to increase or decrease a value
+float increase(float value, float increment, float limit) {
+  value += increment;
+  if (value > limit) {
+    value = limit;
+  }
+  return value;
+}
+float decrease(float value, float decrement, float limit) {
+  value -= decrement;
+  if (value < limit) {
+    value = limit;
+  }
+  return value;
 }
 
-void navigateDown(int &selectedItem, int menuItems) {
-  selectedItem = (selectedItem + 1) % menuItems;
-}
-
-void setupBattery() {
-  // Set battery pin as input
-  pinMode(PIN_BATTERY_READ, INPUT);
-  pinMode(PIN_BATTERY_ENABLE_READ, OUTPUT);
-  digitalWrite(PIN_BATTERY_ENABLE_READ, LOW);
-}
-
-void setupLED() {
-  // Set LED pins as outputs
-  pinMode(PIN_RGB_RED, OUTPUT);
-  pinMode(PIN_RGB_GREEN, OUTPUT);
-  pinMode(PIN_RGB_BLUE, OUTPUT);
-}
+#include "led.h"
+#include "menu.h"
+#include "ble.h"
+#include "batt.h"
+#include "imu.h"
 
 #endif
