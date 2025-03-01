@@ -578,14 +578,6 @@
     [
       "34ec7d21-7026-4230-8659-e414bc456131",
       "Root"
-    ],
-    [
-      "c874d2fa-5c1d-4342-9993-9244af40b969",
-      "Encoders"
-    ],
-    [
-      "5fb7a147-70e9-4d56-860e-c5720c6aaa0a",
-      "Prox Sensors"
     ]
   ],
   "text_variables": {}
