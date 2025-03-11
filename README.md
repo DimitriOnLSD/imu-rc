@@ -1,3 +1,4 @@
+![alt text](https://github.com/DimitriOnLSD/imu-rc/blob/main/assets/images/render_main.png)
 # IMU-RC
 This repository contains the final project for an Electronics and Computer Engineering degree: IMU-RC, an innovative hand-held controller for RC cars.
 
