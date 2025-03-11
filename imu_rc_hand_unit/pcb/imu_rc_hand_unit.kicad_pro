@@ -637,7 +637,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "Gerber files/",
+      "plot": "gerber_files/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "../3d/imu_rc_hand_unit.step",
