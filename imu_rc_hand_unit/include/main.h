@@ -3,10 +3,10 @@
 
 #ifdef DEV_BOARD
 #define PIN_NEOPIXEL 48     // LED_BUILTIN
-#define PIN_BTN_U 15    // K1
-#define PIN_BTN_D 7   // K2
-#define PIN_BTN_S 6 // K3
-#define PIN_BTN_B 5   // K4
+#define PIN_BTN_U 15        // K1
+#define PIN_BTN_D 7         // K2
+#define PIN_BTN_S 6         // K3
+#define PIN_BTN_B 5         // K4
 #define PIN_BATTERY_READ 16 // ADC2_5
 #define PIN_BATTERY_ENABLE_READ 17
 #define PIN_CHARGER_STATUS 18
@@ -47,54 +47,43 @@
 Adafruit_NeoPixel pixels(1, PIN_NEOPIXEL, NEO_GRB + NEO_KHZ800);
 #endif
 
-bool clientDisconnected = false;
-bool clientIsConnected = false;
-bool clientLostConnection = false;
-bool clientConnectionAttempt = false;
-bool clientIsScanning = false;
+// BLE variables
+String dataToSend;
+uint8_t serverBatteryPercentage = 0;
+bool clientDisconnected = false;      // Flag to indicate a previous disconnection from the client
+bool clientIsConnected = false;       // Flag to indicate a connection
+bool clientLostConnection = false;    // Flag to indicate a lost connection
+bool clientConnectionAttempt = false; // Flag to indicate a connection attempt
+bool clientIsScanning = false;        // Flag to indicate the client is scanning
 
-bool printOnce = true;
+// Car logic variables
+uint8_t controlType = 0;    // Control type for the car
 bool carIsStopped = true;   // Flag to indicate the car is stopped
 bool carIsRotating = false; // Flag to indicate the car is rotating
 bool canMoveXAxis = false;  // Flag to enable movement in the X-axis
 bool canMoveYAxis = true;   // Flag to enable movement in the Y-axis
 bool movingXAxis = false;   // Flag to indicate movement in the X-axis
 bool movingYAxis = false;   // Flag to indicate movement in the Y-axis
-
-String dataToSend;
-uint8_t serverBatteryPercentage = 0;
-uint8_t controlType = 0; // Control type for the car
-
-float sensitivity = 1.0f; // Sensitivity for the inertial sensor
+float sensitivity = 1.0f;   // Sensitivity for the inertial sensor
 const float sens_max = 2.0f;
 const float sens_min = 0.1f;
 
-uint8_t battPercentage = 0;
-
-bool readDataWithScreen = false;
-volatile bool buttonPress = false; // Flag for button press
-volatile bool buttonPressed[4] = {false}; // Flags for button presses
-bool buttonPressedOnce = false;
-char input;
+// Handheld device variables
+uint8_t battPercentage = 0;               // Battery percentage
+volatile bool buttonPress = false;        // Flag for any button press
+volatile bool buttonPressed[4] = {false}; // Flags for specific button presses
+bool readDataWithScreen = false;          // Flag to read data with the screen
+char input;                               // Input character
 
 void debugPrint(bool printData, double yaw, double pitch, double roll, String data);
-
 void setupSerial();
-
 void setupI2C();
-
 double constraintAngle(double angle, double limit);
-
 bool positiveTilt(double var);
-
 bool negativeTilt(double var);
-
 void motorCommand(uint8_t leftSpeed, uint8_t rightSpeed, String direction);
-
 void functionCommand(String command);
-
 float increase(float value, float increment, float limit);
-
 float decrease(float value, float decrement, float limit);
 
 #include "timer.h"

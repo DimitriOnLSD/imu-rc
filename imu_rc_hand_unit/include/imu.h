@@ -28,9 +28,7 @@ double roll;
 uint8_t teapotPacket[14] = {'$', 0x02, 0, 0, 0, 0, 0, 0, 0, 0, 0x00, 0x00, '\r', '\n'};
 
 void setupMPU6050();
-
 void DMPDataReady();
-
 bool resetMPU();
 
 #include "imu.cpp"

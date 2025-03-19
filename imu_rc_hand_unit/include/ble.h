@@ -11,11 +11,8 @@ BLEClient *pClient;
 BLERemoteCharacteristic *pRemoteCharacteristic;
 
 void setupBLE();
-
 static void notifyCallback(BLERemoteCharacteristic *pBLERemoteCharacteristic, uint8_t *pData, size_t length, bool isNotify);
-
 BLEClient *connectToServer(BLEAddress serverAddress);
-
 bool scanForServer();
 
 #include "ble.cpp"

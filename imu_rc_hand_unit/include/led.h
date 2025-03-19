@@ -13,9 +13,7 @@ IMU RESET   : White blinking
 */
 
 void setupLED();
-
 void setColor(const char *color);
-
 void SetLEDStatus(const char *color, const char *mode);
 
 #include "led.cpp"

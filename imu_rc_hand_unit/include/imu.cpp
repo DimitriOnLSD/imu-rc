@@ -1,19 +1,15 @@
-void setupMPU6050()
-{
+void setupMPU6050() {
   // Initialize the MPU6050
   debugPrint(false, 0, 0, 0, "Initializing I2C for MPU6050...");
   mpu.initialize();
 
   // Verify MPU6050 connection
   debugPrint(false, 0, 0, 0, "Testing MPU6050 connections...");
-  if (mpu.testConnection() == false)
-  {
+  if (mpu.testConnection() == false) {
     debugPrint(false, 0, 0, 0, "MPU6050 connection failed");
     while (true)
       ;
-  }
-  else
-  {
+  } else {
     debugPrint(false, 0, 0, 0, "MPU6050 connection successful");
   }
 
@@ -26,19 +22,18 @@ void setupMPU6050()
   mpu.setDMPEnabled(true);
 
   DMPReady = true;
-  packetSize = mpu.dmpGetFIFOPacketSize(); // Get expected DMP packet size for later comparison
+  packetSize = mpu.dmpGetFIFOPacketSize();  // Get expected DMP packet size for later comparison
 }
 
 // Interrupt detection routine
-volatile bool MPUInterrupt = false; // Indicates whether MPU6050 interrupt pin has gone high
-void DMPDataReady()
-{
+volatile bool MPUInterrupt = false;  // Indicates whether MPU6050 interrupt pin has gone high
+void DMPDataReady() {
   MPUInterrupt = true;
 }
 
 // Function to reset the MPU6050
-bool resetMPU()
-{
+bool resetMPU() {
+  debugPrint(false, 0, 0, 0, "Resetting MPU6050...");
   q = Quaternion(1, 0, 0, 0);
   gravity = VectorFloat(0, 0, 0);
 

@@ -96,32 +96,19 @@ void setup() {
 
 void loop() {
   if (buttonPress) {
-    buttonPress = false;
-    updateDisplay = true;
-
     for (int i = 0; i < 4; i++) {
       if (buttonPressed[i]) {
         switch (i) {
-          case 0:
-            input = 'w';
-            attachInterrupt(digitalPinToInterrupt(PIN_BTN_U), handleUP, FALLING);
-            break;
-          case 1:
-            input = 's';
-            attachInterrupt(digitalPinToInterrupt(PIN_BTN_D), handleDN, FALLING);
-            break;
-          case 2:
-            input = 32;
-            attachInterrupt(digitalPinToInterrupt(PIN_BTN_S), handleSL, FALLING);
-            break;
-          case 3:
-            input = 9;
-            attachInterrupt(digitalPinToInterrupt(PIN_BTN_B), handleBK, FALLING);
-            break;
+          case 0: input = 'w'; attachInterrupt(digitalPinToInterrupt(PIN_BTN_U), handleUP, FALLING); break;
+          case 1: input = 's'; attachInterrupt(digitalPinToInterrupt(PIN_BTN_D), handleDN, FALLING); break;
+          case 2: input = 32;  attachInterrupt(digitalPinToInterrupt(PIN_BTN_S), handleSL, FALLING); break;
+          case 3: input = 9;   attachInterrupt(digitalPinToInterrupt(PIN_BTN_B), handleBK, FALLING); break;
         }
         buttonPressed[i] = false;  // Reset flag
       }
     }
+    buttonPress = false;
+    updateDisplay = true;
   } else if (Serial.available()) {
     input = Serial.read();
     updateDisplay = true;
@@ -145,21 +132,33 @@ void loop() {
     updateBattery = false;
   }
 
+  if (updateRSSI && clientIsConnected) {
+    RSSI = pClient->getRssi();
+    debugPrint(false, 0, 0, 0, "RSSI: " + String(RSSI));
+    RSSIbars = getSignalBars(RSSI);
+    updateRSSI = false;
+  } else if (!clientIsConnected) {
+    RSSI = 0; // Assure the RSSI value is 0 when not connected
+    RSSIbars = 0;
+  }
+
   if (updateDisplay) {
     // Handle the current menu
     switch (currentMenu) {
       case MAIN_MENU:
         switch (input) {
-          case 'w':  // Navigate up
+          case 87:
+          case 119: // W
             navigateUp(selectedMainMenuItem, MAIN_MENU_ITEMS);
             break;
-          case 's':  // Navigate down
+          case 53:
+          case 115: // S
             navigateDown(selectedMainMenuItem, MAIN_MENU_ITEMS);
             break;
-          case 32:  // Select menu
+          case 32: // SPACE
             previousMenu = currentMenu;
             switch (selectedMainMenuItem) {
-              case 0:  // Start scanning for BLE servers
+              case 0:  // Scan
                 clientIsScanning = true;
                 currentMenu = SCANNING;
                 break;
@@ -172,13 +171,15 @@ void loop() {
         break;
       case CONNECTED_MENU:
         switch (input) {
-          case 'w':  // Navigate up
+          case 87:
+          case 119: // W
             navigateUp(selectedConnectedMenuItem, CONNECTED_MENU_ITEMS);
             break;
-          case 's':  // Navigate down
+          case 53:
+          case 115: // S
             navigateDown(selectedConnectedMenuItem, CONNECTED_MENU_ITEMS);
             break;
-          case 32:  // Select menu
+          case 32: // SPACE
             previousMenu = currentMenu;
             switch (selectedConnectedMenuItem) {
               case 0:  // Control type
@@ -195,29 +196,27 @@ void loop() {
                 debugPrint(false, 0, 0, 0, "Disconnected from IMU-RC Car.");
                 clientDisconnected = true;
                 clientIsConnected = false;
-                previousMenu = MAIN_MENU;
+                previousMenu = MAIN_MENU; // Prevent returning to the connected menu
                 currentMenu = MAIN_MENU;
                 break;
             }
-            break;
-          default:
-            RSSI = pClient->getRssi();
-            debugPrint(false, 0, 0, 0, "RSSI: " + String(RSSI));
             break;
         }
         break;
       case SETTINGS_MENU:
         switch (input) {
-          case 'w':  // Navigate up
+          case 87:
+          case 119: // W
             navigateUp(selectedSettingsMenuItem, SETTINGS_MENU_ITEMS);
             break;
-          case 's':  // Navigate down
+          case 53:
+          case 115: // S
             navigateDown(selectedSettingsMenuItem, SETTINGS_MENU_ITEMS);
             break;
-          case 9:  // Back to main menu
+          case 9: // TAB
             currentMenu = clientIsConnected ? CONNECTED_MENU : MAIN_MENU;
             break;
-          case 32:  // Select menu
+          case 32: // SPACE
             previousMenu = currentMenu;
             switch (selectedSettingsMenuItem) {
               case 0:  // Set inertial sensitivity
@@ -239,16 +238,18 @@ void loop() {
         break;
       case CONTROL_TYPE_MENU:
         switch (input) {
-          case 'w':  // Navigate up
+          case 87:
+          case 119: // W
             navigateUp(selectedControlTypeMenuItem, CONTROL_TYPE_MENU_ITEMS);
             break;
-          case 's':  // Navigate down
+          case 53:
+          case 115: // S
             navigateDown(selectedControlTypeMenuItem, CONTROL_TYPE_MENU_ITEMS);
             break;
-          case 9:  // Back
+          case 9: // TAB
             currentMenu = previousMenu;
             break;
-          case 32:  // Select menu
+          case 32: // SPACE
             switch (selectedControlTypeMenuItem) {
               case 0:  // Dual Motor
                 controlType = 0;
@@ -269,14 +270,16 @@ void loop() {
         break;
       case INERTIAL_SENSITIVITY:
         switch (input) {
-          case 32:
-          case 9:
+          case 32: // SPACE
+          case 9: // TAB
             currentMenu = previousMenu;
             break;
-          case 'w':
+          case 87:
+          case 119: // W
             sensitivity = increase(sensitivity, 0.1f, sens_max);
             break;
-          case 's':
+          case 53:
+          case 115: // S
             sensitivity = decrease(sensitivity, 0.1f, sens_min);
             break;
         }
@@ -291,8 +294,8 @@ void loop() {
       case CAR_STATS:
       case LOST_CONNECTION:
         switch (input) {
-          case 32:
-          case 9:
+          case 32: // SPACE
+          case 9: // TAB
             currentMenu = currentMenu == LOST_CONNECTION ? MAIN_MENU : previousMenu;
             break;
         }
@@ -300,7 +303,8 @@ void loop() {
     }
 
     display.clearDisplay();
-    displayHUD(barsBattery, RSSI);
+    
+    displayHUD(barsBattery, RSSIbars);
 
     // Render the current menu
     switch (currentMenu) {
@@ -352,7 +356,6 @@ void loop() {
         break;
       case RESET:
         drawText("Resetting...", 1, -1, -1);
-        debugPrint(false, 0, 0, 0, "Resetting MPU6050...");
         SetLEDStatus("WHITE", "ON");
         break;
       case RESET_COMPLETED:
@@ -376,9 +379,9 @@ void loop() {
 
     // Reset MPU if requested
     if (resetYPR) {
-      imuTicker.detach(); // Stop the IMU timer
+      imuTicker.detach();  // Stop the IMU timer
       currentMenu = resetMPU() ? RESET_COMPLETED : RESET_FAILED;
-      imuTicker.attach(1.0 / UPDATE_RATE_IMU, updateIMU); // Re-enable IMU timer
+      imuTicker.attach(1.0 / UPDATE_RATE_IMU, updateIMU);  // Re-enable IMU timer
       resetYPR = false;
     }
 
@@ -455,10 +458,7 @@ void loop() {
         clientIsConnected = false;
         clientConnectionAttempt = false;
         currentMenu = LOST_CONNECTION;
-        if (printOnce) {
-          debugPrint(false, 0, 0, 0, "Lost connection to IMU-RC Car.");
-          printOnce = false;
-        }
+        debugPrint(false, 0, 0, 0, "Lost connection to IMU-RC Car.");
       }
     }
     sendData = false;
