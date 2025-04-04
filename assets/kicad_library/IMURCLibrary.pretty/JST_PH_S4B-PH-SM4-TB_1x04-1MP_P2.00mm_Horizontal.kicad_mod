@@ -1,7 +1,7 @@
 (footprint "JST_PH_S4B-PH-SM4-TB_1x04-1MP_P2.00mm_Horizontal"
-	(version 20240108)
+	(version 20241229)
 	(generator "pcbnew")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(layer "F.Cu")
 	(descr "JST PH series connector, S4B-PH-SM4-TB (http://www.jst-mfg.com/product/pdf/eng/ePH.pdf), generated with kicad-footprint-generator")
 	(tags "connector JST PH horizontal")
@@ -23,19 +23,6 @@
 		(effects
 			(font
 				(size 1 1)
-				(thickness 0.15)
-			)
-		)
-	)
-	(property "Footprint" ""
-		(at 0 0 0)
-		(unlocked yes)
-		(layer "F.Fab")
-		(hide yes)
-		(uuid "48f3f2d5-eab5-40ec-bfa2-7a95c4001e8f")
-		(effects
-			(font
-				(size 1.27 1.27)
 				(thickness 0.15)
 			)
 		)
@@ -321,46 +308,47 @@
 	(pad "1" smd roundrect
 		(at -3 -2.85)
 		(size 1 3.5)
-		(layers "F.Cu" "F.Paste" "F.Mask")
+		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.25)
 		(uuid "a4c3d672-d855-4749-bda6-928dab3e48f0")
 	)
 	(pad "2" smd roundrect
 		(at -1 -2.85)
 		(size 1 3.5)
-		(layers "F.Cu" "F.Paste" "F.Mask")
+		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.25)
 		(uuid "c5e9c99f-0b1a-482c-be4c-daa14903b67d")
 	)
 	(pad "3" smd roundrect
 		(at 1 -2.85)
 		(size 1 3.5)
-		(layers "F.Cu" "F.Paste" "F.Mask")
+		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.25)
 		(uuid "2ccc23fa-a8e7-4f45-9b8e-976bba98c3e3")
 	)
 	(pad "4" smd roundrect
 		(at 3 -2.85)
 		(size 1 3.5)
-		(layers "F.Cu" "F.Paste" "F.Mask")
+		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.25)
 		(uuid "07d939ab-5a4d-4204-8164-6393de03e876")
 	)
 	(pad "MP" smd roundrect
 		(at -5.35 2.9)
 		(size 1.5 3.4)
-		(layers "F.Cu" "F.Paste" "F.Mask")
+		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.166667)
 		(uuid "bdc609db-a505-460d-8fc2-6d8e795c7614")
 	)
 	(pad "MP" smd roundrect
 		(at 5.35 2.9)
 		(size 1.5 3.4)
-		(layers "F.Cu" "F.Paste" "F.Mask")
+		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.166667)
 		(uuid "34397b14-79ae-42c0-a831-5032075b4bd3")
 	)
-	(model "C:/Users/Paulo/Downloads/jst-ph-2-00mm-connector-set-1.snapshot.75/JST - PH - SMD - Right - 1.25mm/JST - PH - SMD (R) - 4Pin - 2.00mm.stp"
+	(embedded_fonts no)
+	(model "C:/Users/Paulo/Documents/KiCad/9.0/3dmodels/JST - PH - SMD (R) - 4Pin - 2.00mm.stp"
 		(offset
 			(xyz 0 4 0)
 		)
