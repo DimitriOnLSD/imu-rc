@@ -633,7 +633,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "gerber_files/",
+      "plot": "../../../../KiCad/Gerber/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "../3d/imu_rc_hand_unit.step",
