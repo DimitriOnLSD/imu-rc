@@ -21,11 +21,11 @@ Control the RC car with intuitive hand gestures:
 - Lean forward: Car moves forward.
 - Lean backward: Car reverses.
 - Lean left or right: Car rotates left or right.
-- Control mode toggle: For 4-motor vehicles, enable sideways movement for strafing.
+- Control mode toggle: For 4-motor vehicles with omni-directional wheels, enable sideways movement for strafing.
 
 ### Additional Features
 - Car stats menu: Check car battery levels.
-- Safety mechanism: Proximity sensors (VL53LX) prevent unwanted motion:
+- Safety mechanism: Infrared proximity sensors prevent collision with walls/objects:
   - 2-motor cars: Front and back sensors.
   - 4-motor cars: Side sensors added for additional safety during strafing.
   
