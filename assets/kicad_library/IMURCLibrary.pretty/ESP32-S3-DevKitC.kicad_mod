@@ -1100,7 +1100,7 @@
 	(embedded_fonts no)
 	(model "C:/Users/Paulo/Documents/KiCad/9.0/3dmodels/YD-ESP32-S3 v34.step"
 		(offset
-			(xyz 11.15 -26.6 3.5)
+			(xyz 10.05 -26.65 3.5)
 		)
 		(scale
 			(xyz 1 1 1)
