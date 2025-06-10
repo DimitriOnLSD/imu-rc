@@ -1,4 +1,4 @@
-25306563077848364
+25311798805117543
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -59192,6 +59192,13 @@ heatsink
 0
 0
 IMURCLibrary
+AMASS_XT60IPW-M_1x03_P7.20mm_Horizontal
+Connector XT60 Horizontal PCB Male, https://www.tme.eu/Document/a5efb91801d38c85c7a1f61518cd6048/XT60IPW-M.pdf
+RC Connector XT60
+0
+5
+3
+IMURCLibrary
 ESP32-S3-DevKitC
 ESP32-S3 general-purpose development board, based on ESP32-S3-WROOM-1 or ESP32-S3-WROOM-1U,It has all the ESP32-S3 pins exposed and is easy to connect and use.
 ESP32-S3
@@ -59261,6 +59268,20 @@ THT Terminal Block Xinya XY308-2.54-4P pitch 2.54mm size 10.7x6.5mm drill 1.2mm 
 0
 4
 4
+IMURCLibrary
+mouse-bite-2.54mm-slot
+
+
+0
+0
+0
+IMURCLibrary
+mouse-bite-5mm-slot
+
+
+0
+0
+0
 Inductor_SMD
 L_6.3x6.3_H3
 Choke, SMD, 6.3x6.3mm 3mm height

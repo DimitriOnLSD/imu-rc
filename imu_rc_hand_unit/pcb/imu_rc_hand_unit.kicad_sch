@@ -25373,6 +25373,7 @@
 	(symbol
 		(lib_id "Transistor_FET:AO3401A")
 		(at 50.8 247.65 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -25380,7 +25381,7 @@
 		(dnp no)
 		(uuid "e75a583a-ac23-498e-963b-4c6cecf0a0b6")
 		(property "Reference" "Q5"
-			(at 54.61 245.11 0)
+			(at 54.61 250.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -25398,7 +25399,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 55.88 249.555 0)
+			(at 55.88 245.745 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -25409,7 +25410,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.aosmd.com/pdfs/datasheet/AO3401A.pdf"
-			(at 55.88 251.46 0)
+			(at 55.88 243.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)

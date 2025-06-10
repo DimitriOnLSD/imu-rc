@@ -6500,16 +6500,6 @@
 	)
 	(wire
 		(pts
-			(xy 116.84 128.27) (xy 116.84 129.54)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a66dea39-161e-47cd-91c8-81dea70220b8")
-	)
-	(wire
-		(pts
 			(xy 237.49 38.1) (xy 237.49 35.56)
 		)
 		(stroke
@@ -6957,6 +6947,16 @@
 			(type default)
 		)
 		(uuid "e0f4b4fd-d052-4e78-9081-512e9c89811e")
+	)
+	(wire
+		(pts
+			(xy 116.84 128.27) (xy 116.84 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e2bbcb6f-23bc-4fe6-beeb-94d5e9c9f47b")
 	)
 	(wire
 		(pts
@@ -11842,6 +11842,7 @@
 	(symbol
 		(lib_id "Transistor_FET:AO3401A")
 		(at 114.3 123.19 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -11849,7 +11850,7 @@
 		(dnp no)
 		(uuid "81448263-1e84-41e1-aa0c-c6ecfe3ae591")
 		(property "Reference" "Q2"
-			(at 118.11 120.65 0)
+			(at 120.65 123.8251 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11858,7 +11859,7 @@
 			)
 		)
 		(property "Value" "DMP3160L-7"
-			(at 119.38 123.19 0)
+			(at 120.65 121.9201 0)
 			(effects
 				(font
 					(size 0.75 0.75)
@@ -11867,7 +11868,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 119.38 125.095 0)
+			(at 119.38 121.285 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11878,7 +11879,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.aosmd.com/pdfs/datasheet/AO3401A.pdf"
-			(at 119.38 127 0)
+			(at 119.38 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
