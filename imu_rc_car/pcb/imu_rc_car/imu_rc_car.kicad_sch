@@ -4787,18 +4787,6 @@
 		(uuid "1c7222f9-a7bc-4c63-8809-8916719f57a6")
 	)
 	(junction
-		(at 240.03 35.56)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "20550d2a-a5ea-4b48-beef-f9a8e8bd163c")
-	)
-	(junction
-		(at 240.03 92.71)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "20741cbd-8b13-44fe-b247-ccb75b1eaa2e")
-	)
-	(junction
 		(at 331.47 36.83)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4835,6 +4823,12 @@
 		(uuid "70d7c5d6-824b-4636-81e4-32393f9591e9")
 	)
 	(junction
+		(at 240.03 87.63)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "713e47b3-67b3-4203-a68f-5063c590ecf9")
+	)
+	(junction
 		(at 152.4 124.46)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4845,6 +4839,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "785971db-75c2-4810-8667-60f249a99ccf")
+	)
+	(junction
+		(at 240.03 30.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "86dac6b9-c235-4431-b909-405730eeed47")
 	)
 	(junction
 		(at 113.03 54.61)
@@ -5040,6 +5040,26 @@
 	)
 	(wire
 		(pts
+			(xy 246.38 34.29) (xy 246.38 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "040f8036-3389-4f45-b35b-247b6537761b")
+	)
+	(wire
+		(pts
+			(xy 200.66 93.98) (xy 200.66 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "06cd39d3-d807-4944-8b4a-de1351d85a60")
+	)
+	(wire
+		(pts
 			(xy 78.74 82.55) (xy 74.93 82.55)
 		)
 		(stroke
@@ -5180,6 +5200,16 @@
 	)
 	(wire
 		(pts
+			(xy 246.38 96.52) (xy 246.38 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "158aad79-af82-4224-8095-86010228e878")
+	)
+	(wire
+		(pts
 			(xy 350.52 118.11) (xy 353.06 118.11)
 		)
 		(stroke
@@ -5210,16 +5240,6 @@
 	)
 	(wire
 		(pts
-			(xy 240.03 91.44) (xy 240.03 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "16a82a4e-aa7a-4039-b94e-08d0383eb3f4")
-	)
-	(wire
-		(pts
 			(xy 57.15 127) (xy 49.53 127)
 		)
 		(stroke
@@ -5230,16 +5250,6 @@
 	)
 	(wire
 		(pts
-			(xy 248.92 40.64) (xy 248.92 41.91)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "190ab16a-eaef-4951-943a-769136b15423")
-	)
-	(wire
-		(pts
 			(xy 350.52 102.87) (xy 353.06 102.87)
 		)
 		(stroke
@@ -5247,6 +5257,16 @@
 			(type default)
 		)
 		(uuid "1952c807-c787-4c30-8a12-4a49802cb438")
+	)
+	(wire
+		(pts
+			(xy 240.03 30.48) (xy 240.03 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1a5134e4-f9ec-4035-9acd-d8a30ae8fa55")
 	)
 	(wire
 		(pts
@@ -5267,16 +5287,6 @@
 			(type default)
 		)
 		(uuid "1cb6e359-6a56-48bb-b42d-0b2671669082")
-	)
-	(wire
-		(pts
-			(xy 198.12 105.41) (xy 198.12 107.95)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1e43fbbc-1454-4127-aab3-6ea0e8d42908")
 	)
 	(wire
 		(pts
@@ -5360,6 +5370,16 @@
 	)
 	(wire
 		(pts
+			(xy 227.33 85.09) (xy 237.49 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "27fd0251-9680-41a0-a5e4-fe79f9ca0629")
+	)
+	(wire
+		(pts
 			(xy 297.18 54.61) (xy 299.72 54.61)
 		)
 		(stroke
@@ -5440,6 +5460,26 @@
 	)
 	(wire
 		(pts
+			(xy 227.33 30.48) (xy 227.33 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3449d649-61c4-4bb2-888d-4988fb8172bf")
+	)
+	(wire
+		(pts
+			(xy 246.38 91.44) (xy 246.38 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "347f4df8-91fb-4f60-8c16-e89d9fb89ea9")
+	)
+	(wire
+		(pts
 			(xy 204.47 53.34) (xy 217.17 53.34)
 		)
 		(stroke
@@ -5490,6 +5530,16 @@
 	)
 	(wire
 		(pts
+			(xy 200.66 101.6) (xy 200.66 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3b6c32f9-6d16-47a9-a9f1-16f218f6ef12")
+	)
+	(wire
+		(pts
 			(xy 54.61 121.92) (xy 54.61 119.38)
 		)
 		(stroke
@@ -5530,16 +5580,6 @@
 	)
 	(wire
 		(pts
-			(xy 198.12 48.26) (xy 198.12 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "418646f0-e14a-4712-ac00-ad5a74b842c0")
-	)
-	(wire
-		(pts
 			(xy 350.52 113.03) (xy 353.06 113.03)
 		)
 		(stroke
@@ -5557,16 +5597,6 @@
 			(type default)
 		)
 		(uuid "433e2aac-ae0a-4782-9953-16a33cff369f")
-	)
-	(wire
-		(pts
-			(xy 240.03 38.1) (xy 240.03 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "437269e0-d2d0-483c-8908-f62f702448d1")
 	)
 	(wire
 		(pts
@@ -5680,16 +5710,6 @@
 	)
 	(wire
 		(pts
-			(xy 240.03 34.29) (xy 240.03 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4f1c8406-12a6-4862-9f1b-915facd38f78")
-	)
-	(wire
-		(pts
 			(xy 144.78 85.09) (xy 156.21 85.09)
 		)
 		(stroke
@@ -5700,13 +5720,13 @@
 	)
 	(wire
 		(pts
-			(xy 198.12 55.88) (xy 198.12 57.15)
+			(xy 246.38 39.37) (xy 246.38 41.91)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "504fbd01-8695-4951-936c-47daa5172a42")
+		(uuid "505327d3-69f6-4e41-bd58-f10a13d511cc")
 	)
 	(wire
 		(pts
@@ -5800,6 +5820,16 @@
 	)
 	(wire
 		(pts
+			(xy 237.49 35.56) (xy 237.49 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5bf53987-cc04-4a98-a75a-a31de0b533c0")
+	)
+	(wire
+		(pts
 			(xy 22.86 48.26) (xy 25.4 48.26)
 		)
 		(stroke
@@ -5817,16 +5847,6 @@
 			(type default)
 		)
 		(uuid "5f5ffdf9-a1a4-4986-bd19-b25d1ee7eabd")
-	)
-	(wire
-		(pts
-			(xy 237.49 92.71) (xy 240.03 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "632bde5e-93bc-45e2-ae1e-b7fdf336d359")
 	)
 	(wire
 		(pts
@@ -5947,16 +5967,6 @@
 			(type default)
 		)
 		(uuid "71c6cb1c-71cb-4121-b07b-1a829c7f7ee8")
-	)
-	(wire
-		(pts
-			(xy 248.92 97.79) (xy 248.92 99.06)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "730a8bd4-4674-4ad8-89f6-45d94257e563")
 	)
 	(wire
 		(pts
@@ -6100,6 +6110,16 @@
 	)
 	(wire
 		(pts
+			(xy 200.66 105.41) (xy 217.17 105.41)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ed1c2af-3cda-4822-9fcf-858addc05773")
+	)
+	(wire
+		(pts
 			(xy 232.41 73.66) (xy 232.41 76.2)
 		)
 		(stroke
@@ -6120,6 +6140,16 @@
 	)
 	(wire
 		(pts
+			(xy 237.49 27.94) (xy 237.49 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "81147b60-c883-4a46-8937-5f244d9a6f3b")
+	)
+	(wire
+		(pts
 			(xy 90.17 43.18) (xy 90.17 63.5)
 		)
 		(stroke
@@ -6137,6 +6167,16 @@
 			(type default)
 		)
 		(uuid "853007c5-d985-4e5c-acc9-4e98bebc1792")
+	)
+	(wire
+		(pts
+			(xy 240.03 86.36) (xy 240.03 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "87741ca1-2145-419b-9a72-9dd1f1816326")
 	)
 	(wire
 		(pts
@@ -6300,6 +6340,16 @@
 	)
 	(wire
 		(pts
+			(xy 246.38 87.63) (xy 240.03 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9346f645-290f-4de8-988c-c6f5c186f8be")
+	)
+	(wire
+		(pts
 			(xy 331.47 30.48) (xy 331.47 29.21)
 		)
 		(stroke
@@ -6370,6 +6420,16 @@
 	)
 	(wire
 		(pts
+			(xy 200.66 44.45) (xy 200.66 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "992cb912-c487-434d-8caa-a9bfa84154e3")
+	)
+	(wire
+		(pts
 			(xy 166.37 85.09) (xy 173.99 85.09)
 		)
 		(stroke
@@ -6410,26 +6470,6 @@
 	)
 	(wire
 		(pts
-			(xy 217.17 48.26) (xy 198.12 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9c79c459-c614-42b3-9c00-b36bfbda7abb")
-	)
-	(wire
-		(pts
-			(xy 237.49 95.25) (xy 237.49 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9cbe3f79-7f0d-4a74-b03e-446b7a16f095")
-	)
-	(wire
-		(pts
 			(xy 247.65 60.96) (xy 252.73 60.96)
 		)
 		(stroke
@@ -6457,16 +6497,6 @@
 			(type default)
 		)
 		(uuid "9feaf2ef-a7e6-477d-8aa7-5a6249b2a440")
-	)
-	(wire
-		(pts
-			(xy 240.03 95.25) (xy 240.03 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a1096b16-5b66-4367-9173-044fbf1be7a7")
 	)
 	(wire
 		(pts
@@ -6500,16 +6530,6 @@
 	)
 	(wire
 		(pts
-			(xy 237.49 38.1) (xy 237.49 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a83135a0-a44a-425e-b250-239851ce5c3a")
-	)
-	(wire
-		(pts
 			(xy 116.84 114.3) (xy 116.84 116.84)
 		)
 		(stroke
@@ -6520,16 +6540,6 @@
 	)
 	(wire
 		(pts
-			(xy 217.17 105.41) (xy 198.12 105.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "acb0d0dc-a145-4b83-9a54-23cec6fc84ca")
-	)
-	(wire
-		(pts
 			(xy 350.52 125.73) (xy 353.06 125.73)
 		)
 		(stroke
@@ -6537,6 +6547,16 @@
 			(type default)
 		)
 		(uuid "add0dd62-b47c-4263-b3d4-908b5df8e887")
+	)
+	(wire
+		(pts
+			(xy 240.03 87.63) (xy 240.03 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ae3a56e2-d287-4eb0-b872-92eb9901df5d")
 	)
 	(wire
 		(pts
@@ -6570,6 +6590,16 @@
 	)
 	(wire
 		(pts
+			(xy 200.66 36.83) (xy 200.66 39.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b9246ff9-4376-41c4-96ed-0a4e38ae1ca0")
+	)
+	(wire
+		(pts
 			(xy 106.68 38.1) (xy 106.68 40.64)
 		)
 		(stroke
@@ -6597,6 +6627,16 @@
 			(type default)
 		)
 		(uuid "b9eab8f2-7a61-416f-b13c-2e5d89033da4")
+	)
+	(wire
+		(pts
+			(xy 227.33 27.94) (xy 237.49 27.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ba33b8c5-05d1-423f-b507-617d9c72a2ea")
 	)
 	(wire
 		(pts
@@ -6700,26 +6740,6 @@
 	)
 	(wire
 		(pts
-			(xy 237.49 35.56) (xy 240.03 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c4ce8f67-d02f-49a8-bd28-bf766228b9f1")
-	)
-	(wire
-		(pts
-			(xy 248.92 35.56) (xy 240.03 35.56)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c7c5f59e-7bae-4a2a-809d-7983e3677ede")
-	)
-	(wire
-		(pts
 			(xy 204.47 107.95) (xy 204.47 110.49)
 		)
 		(stroke
@@ -6800,13 +6820,13 @@
 	)
 	(wire
 		(pts
-			(xy 198.12 113.03) (xy 198.12 114.3)
+			(xy 227.33 87.63) (xy 227.33 85.09)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "ced6e0ea-bdaf-4f21-bff6-5352fec2aac5")
+		(uuid "ce2e79d3-88f9-4297-9abd-022280279b9f")
 	)
 	(wire
 		(pts
@@ -6817,6 +6837,16 @@
 			(type default)
 		)
 		(uuid "cff1e969-78d8-41b1-9af2-6c9fe20baa58")
+	)
+	(wire
+		(pts
+			(xy 237.49 85.09) (xy 237.49 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d10669be-74ec-4da2-810f-f8b9b9604db7")
 	)
 	(wire
 		(pts
@@ -6880,16 +6910,6 @@
 	)
 	(wire
 		(pts
-			(xy 248.92 92.71) (xy 240.03 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "daf62562-a0cf-49c1-9535-2f14b66b3f7f")
-	)
-	(wire
-		(pts
 			(xy 168.91 45.72) (xy 168.91 44.45)
 		)
 		(stroke
@@ -6940,6 +6960,26 @@
 	)
 	(wire
 		(pts
+			(xy 237.49 92.71) (xy 237.49 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df99cbd7-8e1f-4364-95ea-d8e930a82204")
+	)
+	(wire
+		(pts
+			(xy 246.38 30.48) (xy 240.03 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dfe41811-9371-4310-8052-87f40c47333b")
+	)
+	(wire
+		(pts
 			(xy 29.21 121.92) (xy 31.75 121.92)
 		)
 		(stroke
@@ -6957,6 +6997,16 @@
 			(type default)
 		)
 		(uuid "e2bbcb6f-23bc-4fe6-beeb-94d5e9c9f47b")
+	)
+	(wire
+		(pts
+			(xy 240.03 29.21) (xy 240.03 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e46eb1dc-9124-4d6b-88cc-652182b9c287")
 	)
 	(wire
 		(pts
@@ -7027,6 +7077,16 @@
 			(type default)
 		)
 		(uuid "ea78f800-bf79-49d2-9abc-f09b357918dd")
+	)
+	(wire
+		(pts
+			(xy 200.66 48.26) (xy 217.17 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eaa39b6a-89c3-4642-9465-e64c6b6def8f")
 	)
 	(wire
 		(pts
@@ -8469,6 +8529,156 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C_Small")
+		(at 200.66 99.06 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "02baf392-3cc2-4edc-9e43-a980374473d7")
+		(property "Reference" "C11"
+			(at 201.93 96.52 0)
+			(effects
+				(font
+					(size 1 1)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10nF"
+			(at 201.93 101.6 0)
+			(effects
+				(font
+					(size 0.75 0.75)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 200.66 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 200.66 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 200.66 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Availability" ""
+			(at 200.66 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Check_prices" ""
+			(at 200.66 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description_1" ""
+			(at 200.66 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MANUFACTURER" ""
+			(at 200.66 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MAXIMUM_PACKAGE_HEIGHT" ""
+			(at 200.66 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Package" ""
+			(at 200.66 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "STANDARD" ""
+			(at 200.66 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Site" ""
+			(at 200.66 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SnapEDA_Link" ""
+			(at 200.66 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c55efd3a-f525-4a45-a76a-9a6d8a7467c6")
+		)
+		(pin "2"
+			(uuid "6c5d2ed8-7be8-42ed-b38e-4564a3d0dcf6")
+		)
+		(instances
+			(project "imu_rc_car"
+				(path "/34ec7d21-7026-4230-8659-e414bc456131"
+					(reference "C11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Driver_Motor:DRV8833PWP")
 		(at 232.41 55.88 0)
 		(unit 1)
@@ -8886,17 +9096,34 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 248.92 41.91 0)
+		(lib_id "Device:C_Small")
+		(at 200.66 41.91 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "180a0a23-a855-448d-b4c7-06ab553f7aa0")
-		(property "Reference" "#PWR023"
-			(at 248.92 48.26 0)
+		(uuid "1665a649-2c51-444d-94f1-34a9a8107504")
+		(property "Reference" "C8"
+			(at 201.93 39.37 0)
+			(effects
+				(font
+					(size 1 1)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10nF"
+			(at 201.93 44.45 0)
+			(effects
+				(font
+					(size 0.75 0.75)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 200.66 41.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8904,16 +9131,8 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "GND"
-			(at 248.92 46.99 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 248.92 41.91 0)
+		(property "Datasheet" "~"
+			(at 200.66 41.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8921,8 +9140,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 248.92 41.91 0)
+		(property "Description" ""
+			(at 200.66 41.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8930,8 +9149,80 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 248.92 41.91 0)
+		(property "Availability" ""
+			(at 200.66 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Check_prices" ""
+			(at 200.66 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description_1" ""
+			(at 200.66 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MANUFACTURER" ""
+			(at 200.66 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MAXIMUM_PACKAGE_HEIGHT" ""
+			(at 200.66 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Package" ""
+			(at 200.66 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "STANDARD" ""
+			(at 200.66 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Site" ""
+			(at 200.66 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SnapEDA_Link" ""
+			(at 200.66 41.91 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8940,12 +9231,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "8e87eb74-7869-4502-bbd6-ad9dbe9e7bb7")
+			(uuid "47c96376-de36-4c4f-9ceb-8a621d9c3b04")
+		)
+		(pin "2"
+			(uuid "09a8cef7-2dea-4241-9a2b-89ca3f12439b")
 		)
 		(instances
 			(project "imu_rc_car"
 				(path "/34ec7d21-7026-4230-8659-e414bc456131"
-					(reference "#PWR023")
+					(reference "C8")
 					(unit 1)
 				)
 			)
@@ -9220,6 +9514,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 246.38 99.06 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1d2f84f2-687d-48a8-8059-9435dd015f05")
+		(property "Reference" "#PWR027"
+			(at 246.38 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 246.38 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 246.38 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 246.38 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 246.38 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "67d8ab3c-ba49-4e89-a66e-8339a7b738df")
+		)
+		(instances
+			(project "imu_rc_car"
+				(path "/34ec7d21-7026-4230-8659-e414bc456131"
+					(reference "#PWR027")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_US")
 		(at 109.22 116.84 90)
 		(unit 1)
@@ -9436,156 +9796,6 @@
 			(project ""
 				(path "/34ec7d21-7026-4230-8659-e414bc456131"
 					(reference "J2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:C_Small")
-		(at 198.12 110.49 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "270ef631-3b51-4bd3-a166-5b2ef04aa709")
-		(property "Reference" "C11"
-			(at 199.39 107.95 0)
-			(effects
-				(font
-					(size 1 1)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10nF"
-			(at 199.39 113.03 0)
-			(effects
-				(font
-					(size 0.75 0.75)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 198.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 198.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 198.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Availability" ""
-			(at 198.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Check_prices" ""
-			(at 198.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description_1" ""
-			(at 198.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MANUFACTURER" ""
-			(at 198.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MAXIMUM_PACKAGE_HEIGHT" ""
-			(at 198.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Package" ""
-			(at 198.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "STANDARD" ""
-			(at 198.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Site" ""
-			(at 198.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "SnapEDA_Link" ""
-			(at 198.12 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "a4233056-c201-4497-ae9f-6586ed243933")
-		)
-		(pin "2"
-			(uuid "5f355ee9-ca68-40ea-8530-fabb747bc02d")
-		)
-		(instances
-			(project "imu_rc_car"
-				(path "/34ec7d21-7026-4230-8659-e414bc456131"
-					(reference "C11")
 					(unit 1)
 				)
 			)
@@ -10309,6 +10519,72 @@
 			(project "imu_rc_car"
 				(path "/34ec7d21-7026-4230-8659-e414bc456131"
 					(reference "R4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 246.38 41.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "45b6961c-c960-4f2c-9ae1-117e85f7369c")
+		(property "Reference" "#PWR026"
+			(at 246.38 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 246.38 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 246.38 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 246.38 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 246.38 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "dbe15de7-5ff1-4020-a895-2437cb54fcdc")
+		)
+		(instances
+			(project "imu_rc_car"
+				(path "/34ec7d21-7026-4230-8659-e414bc456131"
+					(reference "#PWR026")
 					(unit 1)
 				)
 			)
@@ -11276,156 +11552,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
-		(at 198.12 53.34 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "659de6fa-b0ca-4c73-b726-cbf12b1764c6")
-		(property "Reference" "C9"
-			(at 199.39 50.8 0)
-			(effects
-				(font
-					(size 1 1)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "10nF"
-			(at 199.39 55.88 0)
-			(effects
-				(font
-					(size 0.75 0.75)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 198.12 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 198.12 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 198.12 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Availability" ""
-			(at 198.12 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Check_prices" ""
-			(at 198.12 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description_1" ""
-			(at 198.12 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MANUFACTURER" ""
-			(at 198.12 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MAXIMUM_PACKAGE_HEIGHT" ""
-			(at 198.12 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Package" ""
-			(at 198.12 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "STANDARD" ""
-			(at 198.12 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Site" ""
-			(at 198.12 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "SnapEDA_Link" ""
-			(at 198.12 53.34 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "bfe25d25-3178-4fd7-aef8-203e98ea4120")
-		)
-		(pin "2"
-			(uuid "13bd9908-626b-44ed-98ad-55685ca0485b")
-		)
-		(instances
-			(project "imu_rc_car"
-				(path "/34ec7d21-7026-4230-8659-e414bc456131"
-					(reference "C9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+BATT")
 		(at 168.91 31.75 0)
 		(unit 1)
@@ -11708,72 +11834,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 248.92 99.06 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7027ba11-4999-42c7-9a6d-42b83dee141d")
-		(property "Reference" "#PWR019"
-			(at 248.92 105.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 248.92 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 248.92 99.06 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 248.92 99.06 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 248.92 99.06 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "909a4fca-e39c-4f75-9c4b-3edc505cc400")
-		)
-		(instances
-			(project "imu_rc_car"
-				(path "/34ec7d21-7026-4230-8659-e414bc456131"
-					(reference "#PWR019")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+3V3")
 		(at 80.01 72.39 0)
 		(unit 1)
@@ -11834,6 +11894,289 @@
 			(project "imu_rc_car"
 				(path "/34ec7d21-7026-4230-8659-e414bc456131"
 					(reference "#PWR011")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+BATT")
+		(at 200.66 36.83 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7a8b0811-7c20-4d42-b6c5-aae9b96fb700")
+		(property "Reference" "#PWR042"
+			(at 200.66 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+7V4"
+			(at 198.12 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 200.66 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 200.66 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+BATT\""
+			(at 200.66 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "02b6a191-1e1e-4f2d-94e0-b459ba54fdba")
+		)
+		(instances
+			(project "imu_rc_car"
+				(path "/34ec7d21-7026-4230-8659-e414bc456131"
+					(reference "#PWR042")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 246.38 93.98 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7b099b18-d168-4bad-8a61-3aefa15b56bd")
+		(property "Reference" "C13"
+			(at 248.92 93.3513 0)
+			(effects
+				(font
+					(size 1 1)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10uF"
+			(at 248.92 95.2562 0)
+			(effects
+				(font
+					(size 0.75 0.75)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 246.38 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 246.38 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 246.38 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Availability" ""
+			(at 246.38 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Check_prices" ""
+			(at 246.38 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description_1" ""
+			(at 246.38 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MANUFACTURER" ""
+			(at 246.38 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MAXIMUM_PACKAGE_HEIGHT" ""
+			(at 246.38 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Package" ""
+			(at 246.38 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "STANDARD" ""
+			(at 246.38 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Site" ""
+			(at 246.38 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SnapEDA_Link" ""
+			(at 246.38 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0808b161-d4d4-4140-a26d-c3c3efba6e72")
+		)
+		(pin "2"
+			(uuid "d18dca79-d5c7-482c-bb0d-d1981156a127")
+		)
+		(instances
+			(project "imu_rc_car"
+				(path "/34ec7d21-7026-4230-8659-e414bc456131"
+					(reference "C13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 227.33 30.48 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7fb7b4a2-d9f7-4bcd-85b9-f978ef8e2136")
+		(property "Reference" "#PWR023"
+			(at 227.33 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 227.33 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 227.33 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 227.33 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 227.33 30.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "03a5501e-e3f6-4000-bc73-2377ddbbf6e7")
+		)
+		(instances
+			(project "imu_rc_car"
+				(path "/34ec7d21-7026-4230-8659-e414bc456131"
+					(reference "#PWR023")
 					(unit 1)
 				)
 			)
@@ -12063,34 +12406,34 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+BATT")
-		(at 240.03 91.44 0)
+		(lib_id "Device:C_Small")
+		(at 237.49 90.17 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "954145a1-3f12-47be-8954-573361b4f74c")
-		(property "Reference" "#PWR034"
-			(at 240.03 95.25 0)
+		(uuid "9488269a-337d-4165-9972-151f858a737e")
+		(property "Reference" "C12"
+			(at 233.934 88.138 0)
 			(effects
 				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+7V4"
-			(at 237.49 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
+					(size 1 1)
 				)
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
-			(at 240.03 91.44 0)
+		(property "Value" "2u2F"
+			(at 233.172 92.202 0)
+			(effects
+				(font
+					(size 0.75 0.75)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 237.49 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12098,8 +12441,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" ""
-			(at 240.03 91.44 0)
+		(property "Datasheet" "~"
+			(at 237.49 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12107,8 +12450,89 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"+BATT\""
-			(at 240.03 91.44 0)
+		(property "Description" ""
+			(at 237.49 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Availability" ""
+			(at 237.49 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Check_prices" ""
+			(at 237.49 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description_1" ""
+			(at 237.49 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MANUFACTURER" ""
+			(at 237.49 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MAXIMUM_PACKAGE_HEIGHT" ""
+			(at 237.49 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Package" ""
+			(at 237.49 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "STANDARD" ""
+			(at 237.49 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Site" ""
+			(at 237.49 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SnapEDA_Link" ""
+			(at 237.49 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12117,12 +12541,15 @@
 			)
 		)
 		(pin "1"
-			(uuid "83d3249f-6163-4d7c-8c6d-9fff868fda14")
+			(uuid "5aef239d-1209-447d-a1e1-ada3f598c77b")
+		)
+		(pin "2"
+			(uuid "9c547ed0-3984-4867-b246-c6f04bd3f723")
 		)
 		(instances
 			(project "imu_rc_car"
 				(path "/34ec7d21-7026-4230-8659-e414bc456131"
-					(reference "#PWR034")
+					(reference "C12")
 					(unit 1)
 				)
 			)
@@ -12255,72 +12682,6 @@
 			(project "imu_rc_car"
 				(path "/34ec7d21-7026-4230-8659-e414bc456131"
 					(reference "#PWR022")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:+BATT")
-		(at 240.03 34.29 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "9f0b2edb-94c9-41ba-b4ff-257741efab1d")
-		(property "Reference" "#PWR035"
-			(at 240.03 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+7V4"
-			(at 237.49 30.48 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 240.03 34.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 240.03 34.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+BATT\""
-			(at 240.03 34.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "83e73fef-8674-4100-8b3f-9f75908cfe4b")
-		)
-		(instances
-			(project "imu_rc_car"
-				(path "/34ec7d21-7026-4230-8659-e414bc456131"
-					(reference "#PWR035")
 					(unit 1)
 				)
 			)
@@ -13100,17 +13461,16 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 198.12 57.15 0)
+		(lib_id "power:+BATT")
+		(at 200.66 93.98 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "add3bb2a-73c4-4c24-b8d2-73211889e484")
-		(property "Reference" "#PWR020"
-			(at 198.12 63.5 0)
+		(uuid "b9a0530f-53ae-4765-becf-17efaee92c89")
+		(property "Reference" "#PWR043"
+			(at 200.66 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13118,16 +13478,17 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "GND"
-			(at 198.12 62.23 0)
+		(property "Value" "+7V4"
+			(at 198.12 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
-			(at 198.12 57.15 0)
+			(at 200.66 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13136,7 +13497,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 198.12 57.15 0)
+			(at 200.66 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13144,74 +13505,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 198.12 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "287e0ab6-f522-4aad-a700-d09fb30e1c20")
-		)
-		(instances
-			(project "imu_rc_car"
-				(path "/34ec7d21-7026-4230-8659-e414bc456131"
-					(reference "#PWR020")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 198.12 114.3 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "b49cb499-7acc-44a3-b6b4-5c84087af373")
-		(property "Reference" "#PWR018"
-			(at 198.12 120.65 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 198.12 119.38 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 198.12 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 198.12 114.3 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 198.12 114.3 0)
+		(property "Description" "Power symbol creates a global label with name \"+BATT\""
+			(at 200.66 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13220,12 +13515,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "9ca9c385-dbca-4373-b892-d0780cf70e0e")
+			(uuid "c9037cb5-3064-4c86-878c-76db07e740ad")
 		)
 		(instances
 			(project "imu_rc_car"
 				(path "/34ec7d21-7026-4230-8659-e414bc456131"
-					(reference "#PWR018")
+					(reference "#PWR043")
 					(unit 1)
 				)
 			)
@@ -13291,6 +13586,72 @@
 			(project "imu_rc_car"
 				(path "/34ec7d21-7026-4230-8659-e414bc456131"
 					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 227.33 87.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c47facfe-1223-4aef-a7cb-923214189fe4")
+		(property "Reference" "#PWR025"
+			(at 227.33 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 227.33 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 227.33 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 227.33 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 227.33 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "493f4ad3-944a-478e-b92d-53700dcd9f07")
+		)
+		(instances
+			(project "imu_rc_car"
+				(path "/34ec7d21-7026-4230-8659-e414bc456131"
+					(reference "#PWR025")
 					(unit 1)
 				)
 			)
@@ -13512,34 +13873,34 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
-		(at 248.92 95.25 0)
+		(lib_id "power:+BATT")
+		(at 240.03 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "d33275ec-21ab-42aa-9fe5-cedd6527f5f6")
-		(property "Reference" "C10"
-			(at 250.19 92.71 0)
+		(uuid "d6e06798-f10e-4de5-b18d-e8785cfb8d20")
+		(property "Reference" "#PWR045"
+			(at 240.03 90.17 0)
 			(effects
 				(font
-					(size 1 1)
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+7V4"
+			(at 237.49 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
 				(justify left)
 			)
 		)
-		(property "Value" "2.2uF"
-			(at 250.19 97.79 0)
-			(effects
-				(font
-					(size 0.75 0.75)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 248.92 95.25 0)
+		(property "Footprint" ""
+			(at 240.03 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13547,8 +13908,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
-			(at 248.92 95.25 0)
+		(property "Datasheet" ""
+			(at 240.03 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13556,89 +13917,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 248.92 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Availability" ""
-			(at 248.92 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Check_prices" ""
-			(at 248.92 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description_1" ""
-			(at 248.92 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MANUFACTURER" ""
-			(at 248.92 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MAXIMUM_PACKAGE_HEIGHT" ""
-			(at 248.92 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Package" ""
-			(at 248.92 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "STANDARD" ""
-			(at 248.92 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Site" ""
-			(at 248.92 95.25 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "SnapEDA_Link" ""
-			(at 248.92 95.25 0)
+		(property "Description" "Power symbol creates a global label with name \"+BATT\""
+			(at 240.03 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13647,15 +13927,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "ea7d8c88-3b48-4379-bcbb-3eb998d58d48")
-		)
-		(pin "2"
-			(uuid "96aff465-c9e8-4101-8deb-a240614dc6c7")
+			(uuid "29b17c94-798e-4804-9070-0f257912b686")
 		)
 		(instances
 			(project "imu_rc_car"
 				(path "/34ec7d21-7026-4230-8659-e414bc456131"
-					(reference "C10")
+					(reference "#PWR045")
 					(unit 1)
 				)
 			)
@@ -13727,6 +14004,307 @@
 			(project ""
 				(path "/34ec7d21-7026-4230-8659-e414bc456131"
 					(reference "U3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 246.38 36.83 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e5b73e6f-4510-4a40-aeaf-fb93a02b2130")
+		(property "Reference" "C10"
+			(at 248.92 36.2013 0)
+			(effects
+				(font
+					(size 1 1)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10uF"
+			(at 248.92 38.1062 0)
+			(effects
+				(font
+					(size 0.75 0.75)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 246.38 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 246.38 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 246.38 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Availability" ""
+			(at 246.38 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Check_prices" ""
+			(at 246.38 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description_1" ""
+			(at 246.38 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MANUFACTURER" ""
+			(at 246.38 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MAXIMUM_PACKAGE_HEIGHT" ""
+			(at 246.38 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Package" ""
+			(at 246.38 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "STANDARD" ""
+			(at 246.38 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Site" ""
+			(at 246.38 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SnapEDA_Link" ""
+			(at 246.38 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "831fd7fd-d5c5-48da-9451-e9e1efb68aae")
+		)
+		(pin "2"
+			(uuid "169ed358-a456-495d-89eb-197e9cf82e7b")
+		)
+		(instances
+			(project "imu_rc_car"
+				(path "/34ec7d21-7026-4230-8659-e414bc456131"
+					(reference "C10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Small")
+		(at 237.49 33.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ee75896e-8068-419b-8df6-9d3d01e239b4")
+		(property "Reference" "C9"
+			(at 234.696 30.988 0)
+			(effects
+				(font
+					(size 1 1)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2u2F"
+			(at 233.172 35.052 0)
+			(effects
+				(font
+					(size 0.75 0.75)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
+			(at 237.49 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 237.49 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 237.49 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Availability" ""
+			(at 237.49 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Check_prices" ""
+			(at 237.49 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description_1" ""
+			(at 237.49 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MANUFACTURER" ""
+			(at 237.49 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MAXIMUM_PACKAGE_HEIGHT" ""
+			(at 237.49 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Package" ""
+			(at 237.49 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "STANDARD" ""
+			(at 237.49 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Site" ""
+			(at 237.49 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "SnapEDA_Link" ""
+			(at 237.49 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "da9722fa-bd9d-4b22-9c1b-d27219d77b8d")
+		)
+		(pin "2"
+			(uuid "73871a0b-9ef5-4fbc-acbe-75c4014beeef")
+		)
+		(instances
+			(project "imu_rc_car"
+				(path "/34ec7d21-7026-4230-8659-e414bc456131"
+					(reference "C9")
 					(unit 1)
 				)
 			)
@@ -13882,34 +14460,34 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
-		(at 248.92 38.1 0)
+		(lib_id "power:+BATT")
+		(at 240.03 29.21 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "f975e095-d535-463e-a1c0-3103cd0bd7eb")
-		(property "Reference" "C8"
-			(at 250.19 35.56 0)
+		(uuid "f7cc380d-8a25-4d41-8da2-672384ed75ae")
+		(property "Reference" "#PWR041"
+			(at 240.03 33.02 0)
 			(effects
 				(font
-					(size 1 1)
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+7V4"
+			(at 237.49 25.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
 				)
 				(justify left)
 			)
 		)
-		(property "Value" "2.2uF"
-			(at 250.19 40.64 0)
-			(effects
-				(font
-					(size 0.75 0.75)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
-			(at 248.92 38.1 0)
+		(property "Footprint" ""
+			(at 240.03 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13917,8 +14495,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
-			(at 248.92 38.1 0)
+		(property "Datasheet" ""
+			(at 240.03 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13926,89 +14504,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" ""
-			(at 248.92 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Availability" ""
-			(at 248.92 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Check_prices" ""
-			(at 248.92 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description_1" ""
-			(at 248.92 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MANUFACTURER" ""
-			(at 248.92 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "MAXIMUM_PACKAGE_HEIGHT" ""
-			(at 248.92 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Package" ""
-			(at 248.92 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "STANDARD" ""
-			(at 248.92 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Site" ""
-			(at 248.92 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "SnapEDA_Link" ""
-			(at 248.92 38.1 0)
+		(property "Description" "Power symbol creates a global label with name \"+BATT\""
+			(at 240.03 29.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14017,15 +14514,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "c4814526-afb5-4b5a-bf16-6ffe87534311")
-		)
-		(pin "2"
-			(uuid "f5a09752-f322-4682-b558-1526e0dfdac7")
+			(uuid "6b94a946-5a04-49c3-8518-c19cd0e6cdc4")
 		)
 		(instances
 			(project "imu_rc_car"
 				(path "/34ec7d21-7026-4230-8659-e414bc456131"
-					(reference "C8")
+					(reference "#PWR041")
 					(unit 1)
 				)
 			)

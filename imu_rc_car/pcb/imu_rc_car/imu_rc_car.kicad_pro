@@ -58,16 +58,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        [
-          "courtyards_overlap|151605000|106025000|2017f594-f528-44b7-b4e0-600c95ad83a4|9ec58c4e-b207-48b6-88be-e4d22365f2b0",
-          ""
-        ],
-        [
-          "courtyards_overlap|151605000|108275000|9ec58c4e-b207-48b6-88be-e4d22365f2b0|ccefd9dd-850c-40e8-91b6-2f9b44e16b76",
-          ""
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -529,7 +520,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "C:/Users/Paulo/Documents/KiCad/Gerber/",
+      "plot": "../../../../../KiCad/Gerber/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
@@ -627,6 +618,14 @@
       "version": 1
     },
     "net_format_name": "",
+    "ngspice": {
+      "fix_include_paths": true,
+      "meta": {
+        "version": 0
+      },
+      "model_mode": 4,
+      "workbook_filename": ""
+    },
     "page_layout_descr_file": "",
     "plot_directory": "",
     "space_save_all_events": true,

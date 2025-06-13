@@ -7,19 +7,31 @@
 #define SERVICE_UUID        "3e3f1b05-90a8-43af-aa6b-335b28282b57"
 #define CHARACTERISTIC_UUID "3e2c8a88-90fd-4b6b-b947-997e80d03d5b"
 
-// Define the pins for the motor control
-#define MOTOR_A1_PIN 4
-#define MOTOR_A2_PIN 16
-#define MOTOR_B1_PIN 17
-#define MOTOR_B2_PIN 18
+// Define pins for 4 motors using DRV8833 driver
+#define AIN1 35  // RIGHT LEFT motor - input 1
+#define AIN2 15  // RIGHT LEFT motor - input 2
+#define BIN1 47  // FRONT LEFT motor - input 1
+#define BIN2 48  // FRONT LEFT motor - input 2
+#define AIN3 16  // FRONT RIGHT motor - input 1
+#define AIN4 15  // FRONT RIGHT motor - input 2
+#define BIN3 6   // REAR RIGHT motor - input 1
+#define BIN4 7   // REAR RIGHT motor - input 2
 
-#define MOTOR_A1_CHANNEL 0
-#define MOTOR_A2_CHANNEL 1
-#define MOTOR_B1_CHANNEL 2
-#define MOTOR_B2_CHANNEL 3
+#define STNDBYA 36
+#define STNDBYB 17
+
+// PWM channels for each pin
+#define AIN1_CH 0
+#define AIN2_CH 1
+#define BIN1_CH 2
+#define BIN2_CH 3
+#define AIN3_CH 4
+#define AIN4_CH 5
+#define BIN3_CH 6
+#define BIN4_CH 7
 
 #define RESOLUTION 8
-#define FREQUENCY 5000
+#define FREQUENCY 1000
 
 #define SPEED_MAX 255
 #define SPEED_MIN 0
@@ -66,60 +78,75 @@ class MyCallbacks : public BLECharacteristicCallbacks {
   }
 };
 
+// Function to control movement based on state
 void move(uint8_t state) {
   switch (state) {
-    case 0:                            // Stop (coast)
-      ledcWrite(MOTOR_A1_CHANNEL, 0);  // R
-      ledcWrite(MOTOR_A2_CHANNEL, 0);  // R
-      ledcWrite(MOTOR_B1_CHANNEL, 0);  // L
-      ledcWrite(MOTOR_B2_CHANNEL, 0);  // L
+    case 0: // STOP
+      ledcWrite(AIN1_CH, 0); ledcWrite(AIN2_CH, 0);
+      ledcWrite(BIN1_CH, 0); ledcWrite(BIN2_CH, 0);
+      ledcWrite(AIN3_CH, 0); ledcWrite(AIN4_CH, 0);
+      ledcWrite(BIN3_CH, 0); ledcWrite(BIN4_CH, 0);
       break;
-    case 1:                                   // Forward
-      ledcWrite(MOTOR_A1_CHANNEL, speed_LM);  // R
-      ledcWrite(MOTOR_A2_CHANNEL, 0);         // R
-      ledcWrite(MOTOR_B1_CHANNEL, 0);         // L
-      ledcWrite(MOTOR_B2_CHANNEL, speed_RM);  // L
+
+    case 1: // FORWARD
+      ledcWrite(AIN1_CH, speed_LM); ledcWrite(AIN2_CH, 0);
+      ledcWrite(BIN1_CH, speed_LM); ledcWrite(BIN2_CH, 0);
+      ledcWrite(AIN3_CH, speed_RM); ledcWrite(AIN4_CH, 0);
+      ledcWrite(BIN3_CH, speed_RM); ledcWrite(BIN4_CH, 0);
       break;
-    case 2:                                   // Reverse
-      ledcWrite(MOTOR_A1_CHANNEL, 0);         // R
-      ledcWrite(MOTOR_A2_CHANNEL, speed_LM);  // R
-      ledcWrite(MOTOR_B1_CHANNEL, speed_RM);  // L
-      ledcWrite(MOTOR_B2_CHANNEL, 0);         // L
+
+    case 2: // REVERSE
+      ledcWrite(AIN1_CH, 0); ledcWrite(AIN2_CH, speed_LM);
+      ledcWrite(BIN1_CH, 0); ledcWrite(BIN2_CH, speed_LM);
+      ledcWrite(AIN3_CH, 0); ledcWrite(AIN4_CH, speed_RM);
+      ledcWrite(BIN3_CH, 0); ledcWrite(BIN4_CH, speed_RM);
       break;
-    case 3:                                   // Rotate right
-      ledcWrite(MOTOR_A1_CHANNEL, speed_LM);  // R
-      ledcWrite(MOTOR_A2_CHANNEL, 0);         // R
-      ledcWrite(MOTOR_B1_CHANNEL, speed_RM);  // L
-      ledcWrite(MOTOR_B2_CHANNEL, 0);         // L
+
+    case 3: // ROTATE RIGHT (left motors forward, right motors backward)
+      ledcWrite(AIN1_CH, speed_LM); ledcWrite(AIN2_CH, 0);
+      ledcWrite(BIN1_CH, speed_LM); ledcWrite(BIN2_CH, 0);
+      ledcWrite(AIN3_CH, 0); ledcWrite(AIN4_CH, speed_RM);
+      ledcWrite(BIN3_CH, 0); ledcWrite(BIN4_CH, speed_RM);
       break;
-    case 4:                                   // Rotate left
-      ledcWrite(MOTOR_A1_CHANNEL, 0);         // R
-      ledcWrite(MOTOR_A2_CHANNEL, speed_LM);  // R
-      ledcWrite(MOTOR_B1_CHANNEL, 0);         // L
-      ledcWrite(MOTOR_B2_CHANNEL, speed_RM);  // L
+
+    case 4: // ROTATE LEFT (left motors backward, right motors forward)
+      ledcWrite(AIN1_CH, 0); ledcWrite(AIN2_CH, speed_LM);
+      ledcWrite(BIN1_CH, 0); ledcWrite(BIN2_CH, speed_LM);
+      ledcWrite(AIN3_CH, speed_RM); ledcWrite(AIN4_CH, 0);
+      ledcWrite(BIN3_CH, speed_RM); ledcWrite(BIN4_CH, 0);
       break;
   }
 }
 
-// Function to setup the motor control pins
+void enableMotorDrivers() {
+  pinMode(STNDBYA, OUTPUT);
+  pinMode(STNDBYB, OUTPUT);
+  digitalWrite(STNDBYA, HIGH);
+  digitalWrite(STNDBYB, HIGH);
+}
+
+// Function to configure motor pins and attach PWM channels
 void setupPins() {
-  pinMode(MOTOR_A1_PIN, OUTPUT);
-  pinMode(MOTOR_A2_PIN, OUTPUT);
-  pinMode(MOTOR_B1_PIN, OUTPUT);
-  pinMode(MOTOR_B2_PIN, OUTPUT);
-  ledcSetup(MOTOR_A1_CHANNEL, FREQUENCY, RESOLUTION);
-  ledcSetup(MOTOR_A2_CHANNEL, FREQUENCY, RESOLUTION);
-  ledcSetup(MOTOR_B1_CHANNEL, FREQUENCY, RESOLUTION);
-  ledcSetup(MOTOR_B2_CHANNEL, FREQUENCY, RESOLUTION);
-  ledcAttachPin(MOTOR_A1_PIN, MOTOR_A1_CHANNEL);
-  ledcAttachPin(MOTOR_A2_PIN, MOTOR_A2_CHANNEL);
-  ledcAttachPin(MOTOR_B1_PIN, MOTOR_B1_CHANNEL);
-  ledcAttachPin(MOTOR_B2_PIN, MOTOR_B2_CHANNEL);
-  move(0);
+  pinMode(AIN1, OUTPUT); pinMode(AIN2, OUTPUT);
+  pinMode(BIN1, OUTPUT); pinMode(BIN2, OUTPUT);
+  pinMode(AIN3, OUTPUT); pinMode(AIN4, OUTPUT);
+  pinMode(BIN3, OUTPUT); pinMode(BIN4, OUTPUT);
+
+  ledcSetup(AIN1_CH, FREQUENCY, RESOLUTION); ledcAttachPin(AIN1, AIN1_CH);
+  ledcSetup(AIN2_CH, FREQUENCY, RESOLUTION); ledcAttachPin(AIN2, AIN2_CH);
+  ledcSetup(BIN1_CH, FREQUENCY, RESOLUTION); ledcAttachPin(BIN1, BIN1_CH);
+  ledcSetup(BIN2_CH, FREQUENCY, RESOLUTION); ledcAttachPin(BIN2, BIN2_CH);
+  ledcSetup(AIN3_CH, FREQUENCY, RESOLUTION); ledcAttachPin(AIN3, AIN3_CH);
+  ledcSetup(AIN4_CH, FREQUENCY, RESOLUTION); ledcAttachPin(AIN4, AIN4_CH);
+  ledcSetup(BIN3_CH, FREQUENCY, RESOLUTION); ledcAttachPin(BIN3, BIN3_CH);
+  ledcSetup(BIN4_CH, FREQUENCY, RESOLUTION); ledcAttachPin(BIN4, BIN4_CH);
+
+  move(0); // Stop all motors initially
 }
 
 void setup() {
   setupPins();
+  enableMotorDrivers();
 
 #ifdef DEBUG
   Serial.begin(115200);
