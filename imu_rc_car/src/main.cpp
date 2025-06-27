@@ -9,11 +9,11 @@
 
 // Define pins for 4 motors using DRV8833 driver
 #define AIN1 35  // RIGHT LEFT motor - input 1
-#define AIN2 15  // RIGHT LEFT motor - input 2
-#define BIN1 47  // FRONT LEFT motor - input 1
-#define BIN2 48  // FRONT LEFT motor - input 2
-#define AIN3 16  // FRONT RIGHT motor - input 1
-#define AIN4 15  // FRONT RIGHT motor - input 2
+#define AIN2 45  // RIGHT LEFT motor - input 2
+#define BIN1 48  // FRONT LEFT motor - input 1 ALTERADO COM BIN2
+#define BIN2 47  // FRONT LEFT motor - input 2 ALTERADO COM BIN1
+#define AIN3 15  // FRONT RIGHT motor - input 1 ALTERADO COM AIN4
+#define AIN4 16  // FRONT RIGHT motor - input 2 ALTERADO COM AIN3
 #define BIN3 6   // REAR RIGHT motor - input 1
 #define BIN4 7   // REAR RIGHT motor - input 2
 
