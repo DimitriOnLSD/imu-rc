@@ -7,7 +7,7 @@
 #define SERVICE_UUID        "3e3f1b05-90a8-43af-aa6b-335b28282b57"
 #define CHARACTERISTIC_UUID "3e2c8a88-90fd-4b6b-b947-997e80d03d5b"
 
-// Define pins for 4 motors using DRV8833 driver
+// Define motor control pins for DRV8833 driver
 #define AIN1 35  // RIGHT LEFT motor - input 1
 #define AIN2 45  // RIGHT LEFT motor - input 2
 #define BIN1 48  // FRONT LEFT motor - input 1 ALTERADO COM BIN2
@@ -17,10 +17,11 @@
 #define BIN3 6   // REAR RIGHT motor - input 1
 #define BIN4 7   // REAR RIGHT motor - input 2
 
+// Define standby pins for DRV8833 driver
 #define STNDBYA 36
 #define STNDBYB 17
 
-// PWM channels for each pin
+// Define PWM channels for motor control
 #define AIN1_CH 0
 #define AIN2_CH 1
 #define BIN1_CH 2
@@ -29,16 +30,21 @@
 #define AIN4_CH 5
 #define BIN3_CH 6
 #define BIN4_CH 7
-
 #define RESOLUTION 8
 #define FREQUENCY 1000
 
+// Define motor control states
 #define SPEED_MAX 255
 #define SPEED_MIN 0
 #define SPEED_STEP 10
 
-#define SEND_BATTERY_FREQUENCY 1
+// Define standby states
+#define SEND_BATTERY_FREQUENCY 1 // Frequency to send battery percentage (Hz)
+#define BATTERY_VOLTAGE_PIN 20  // Pin for battery voltage measurement
+#define BATTERY_VOLTAGE_ENABLE_PIN 21 // Pin to enable battery voltage measurement
+#define BATTERY_READ_DELAY 10 // Delay for battery voltage measurement in milliseconds
 
+// Uncomment the following line to enable debug messages
 #define DEBUG
 
 // Global variable to store received data
@@ -80,6 +86,9 @@ class MyCallbacks : public BLECharacteristicCallbacks {
 
 // Function to control movement based on state
 void move(uint8_t state) {
+  // Ensure speed values are within bounds
+  speed_LM = constrain(speed_LM, SPEED_MIN, SPEED_MAX);
+  speed_RM = constrain(speed_RM, SPEED_MIN, SPEED_MAX);
   switch (state) {
     case 0: // STOP
       ledcWrite(AIN1_CH, 0); ledcWrite(AIN2_CH, 0);
@@ -118,19 +127,25 @@ void move(uint8_t state) {
   }
 }
 
-void enableMotorDrivers() {
-  pinMode(STNDBYA, OUTPUT);
-  pinMode(STNDBYB, OUTPUT);
+void disableSleepMode() {
   digitalWrite(STNDBYA, HIGH);
   digitalWrite(STNDBYB, HIGH);
 }
 
+void enableSleepMode() {
+  digitalWrite(STNDBYA, LOW);
+  digitalWrite(STNDBYB, LOW);
+}
+
 // Function to configure motor pins and attach PWM channels
-void setupPins() {
+void setupMotorPins() {
   pinMode(AIN1, OUTPUT); pinMode(AIN2, OUTPUT);
   pinMode(BIN1, OUTPUT); pinMode(BIN2, OUTPUT);
   pinMode(AIN3, OUTPUT); pinMode(AIN4, OUTPUT);
   pinMode(BIN3, OUTPUT); pinMode(BIN4, OUTPUT);
+
+  pinMode(STNDBYA, OUTPUT);
+  pinMode(STNDBYB, OUTPUT);
 
   ledcSetup(AIN1_CH, FREQUENCY, RESOLUTION); ledcAttachPin(AIN1, AIN1_CH);
   ledcSetup(AIN2_CH, FREQUENCY, RESOLUTION); ledcAttachPin(AIN2, AIN2_CH);
@@ -144,43 +159,50 @@ void setupPins() {
   move(0); // Stop all motors initially
 }
 
+// Function to configure battery voltage measurement pins
+void setupBatteryPins() {
+  pinMode(BATTERY_VOLTAGE_PIN, INPUT);
+  pinMode(BATTERY_VOLTAGE_ENABLE_PIN, OUTPUT);
+  digitalWrite(BATTERY_VOLTAGE_ENABLE_PIN, LOW); // Keep battery voltage measurement disabled initially
+}
+
+void enableBatteryVoltageMeasurement() {
+  digitalWrite(BATTERY_VOLTAGE_ENABLE_PIN, HIGH); // Enable battery voltage measurement
+}
+
+uint8_t measureBatteryVoltage() {
+  int rawADC = analogRead(BATTERY_VOLTAGE_PIN);
+  batteryVoltage = (rawADC / 4095.0) * 3.3;
+  digitalWrite(BATTERY_VOLTAGE_ENABLE_PIN, LOW); // Disable battery voltage measurement
+
+  float minVoltage = 2.91;
+  float maxVoltage = 3.30;
+  return constrain(100.0 * (batteryVoltage - minVoltage) / (maxVoltage - minVoltage), 0, 100);
+}
+
 void setup() {
-  setupPins();
-  enableMotorDrivers();
+  setupMotorPins();   // Configure motor pins and attach PWM channels
+  disableSleepMode(); // Disable deep sleep mode to keep the device awake
+  setupBatteryPins(); // Configure battery voltage measurement pins
 
 #ifdef DEBUG
   Serial.begin(115200);
 #endif
 
-  // Initialize the BLE device
-  BLEDevice::init("IMU-RC Car");
-
-  // Create a BLE Server
-  BLEServer *pServer = BLEDevice::createServer();
-
-  // Create a BLE Service
-  BLEService *pService = pServer->createService(SERVICE_UUID);
-
-  // Create a BLE Characteristic with read, write, and notify properties
+  BLEDevice::init("IMU-RC Car");                               // Initialize the BLE device
+  BLEServer *pServer = BLEDevice::createServer();              // Create a BLE Server
+  BLEService *pService = pServer->createService(SERVICE_UUID); // Create a BLE Service
   pCharacteristic = pService->createCharacteristic(CHARACTERISTIC_UUID,
-      BLECharacteristic::PROPERTY_READ | 
-      BLECharacteristic::PROPERTY_WRITE | 
-      BLECharacteristic::PROPERTY_NOTIFY);
-
-  // Set callback to handle client writes
-  pCharacteristic->setCallbacks(new MyCallbacks());
-
-  // Set an initial value for the characteristic
-  pCharacteristic->setValue("IMU-RC Car V1.0.0");
-
-  // Start the service
-  pService->start();
-
-  // Start advertising the BLE service
-  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+    BLECharacteristic::PROPERTY_READ |
+    BLECharacteristic::PROPERTY_WRITE |
+    BLECharacteristic::PROPERTY_NOTIFY);                      // Create a BLE Characteristic with read, write, and notify properties
+  pCharacteristic->setCallbacks(new MyCallbacks());           // Set callback to handle client writes
+  pCharacteristic->setValue("IMU-RC Car");                    // Set an initial value for the characteristic
+  pService->start();                                          // Start the service
+  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising(); // Start advertising the BLE service
   pAdvertising->addServiceUUID(SERVICE_UUID);
   pAdvertising->setScanResponse(true);
-  pAdvertising->setMinPreferred(0x06);  // Helpful for iPhone connections
+  pAdvertising->setMinPreferred(0x06); // Helpful for iPhone connections
   pAdvertising->setMinPreferred(0x12);
   BLEDevice::startAdvertising();
 
@@ -229,17 +251,15 @@ void loop() {
     receivedData = "";  // Clear after processing to avoid re-triggering
   }
   
-  if (currentTime - lastSendTime > 1 / SEND_BATTERY_FREQUENCY * 1000) {
-    lastSendTime = currentTime;
-    sendNotificationToClient(String(batteryPercentage, 0));
-  }
-
-  batteryPercentage += 1;
-  if (batteryPercentage > 100) {
-    batteryPercentage = 0;
+  if (currentTime - lastSendTime > 1 / SEND_BATTERY_FREQUENCY * (1000 - BATTERY_READ_DELAY)) {
+    enableBatteryVoltageMeasurement(); // Enable battery voltage measurement
+    if (currentTime - lastSendTime > 1 / SEND_BATTERY_FREQUENCY * 1000) {
+      lastSendTime = currentTime;
+      batteryPercentage = measureBatteryVoltage(); // Measure battery voltage and get percentage
+      sendNotificationToClient(String(batteryPercentage, 0)); // Send battery percentage to the client
+    }
   }
   
-
   // future development
 
   // uint8_t command;

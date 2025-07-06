@@ -1,0 +1,92 @@
+22643853035003
+IMURCLibrary
+AMASS_XT60IPW-M_1x03_P7.20mm_Horizontal
+Connector XT60 Horizontal PCB Male, https://www.tme.eu/Document/a5efb91801d38c85c7a1f61518cd6048/XT60IPW-M.pdf
+RC Connector XT60
+0
+5
+3
+IMURCLibrary
+ESP32-S3-DevKitC
+ESP32-S3 general-purpose development board, based on ESP32-S3-WROOM-1 or ESP32-S3-WROOM-1U,It has all the ESP32-S3 pins exposed and is easy to connect and use.
+ESP32-S3
+0
+44
+44
+IMURCLibrary
+JST_PH_S3B-PH-SM4-TB_1x03-1MP_P2.00mm_Horizontal
+JST PH series connector, S3B-PH-SM4-TB (http://www.jst-mfg.com/product/pdf/eng/ePH.pdf), generated with kicad-footprint-generator
+connector JST PH horizontal
+0
+5
+4
+IMURCLibrary
+JST_PH_S4B-PH-SM4-TB_1x04-1MP_P2.00mm_Horizontal
+JST PH series connector, S4B-PH-SM4-TB (http://www.jst-mfg.com/product/pdf/eng/ePH.pdf), generated with kicad-footprint-generator
+connector JST PH horizontal
+0
+6
+5
+IMURCLibrary
+JST_PH_S5B-PH-SM4-TB_1x05-1MP_P2.00mm_Horizontal
+JST PH series connector, S5B-PH-SM4-TB (http://www.jst-mfg.com/product/pdf/eng/ePH.pdf), generated with kicad-footprint-generator
+connector JST PH horizontal
+0
+7
+6
+IMURCLibrary
+JST_SH_SM04B-SRSS-TB_1x04-1MP_P1.00mm_Horizontal
+JST SH series connector, SM04B-SRSS-TB (http://www.jst-mfg.com/product/pdf/eng/eSH.pdf), generated with kicad-footprint-generator
+connector JST SH horizontal
+0
+6
+5
+IMURCLibrary
+LED_D5.0mm-4_RKGB
+LED, diameter 5.0mm, 4 pins, WP154A4, https://www.kingbright.com/attachments/file/psearch/000/00/00/L-154A4SUREQBFZGEW(Ver.11A).pdf
+LED diameter 5.0mm 2 pins diameter 5.0mm 3 pins diameter 5.0mm 4 pins RGB RGBLED
+0
+4
+4
+IMURCLibrary
+LGA-14L_3x2.5mm_P0.5mm
+LGA-14 Bosch https://ae-bst.resource.bosch.com/media/_tech/media/datasheets/BST-BMI160-DS000-07.pdf
+lga land grid array
+0
+14
+14
+IMURCLibrary
+Potentiometer_Bourns_TC33X_Vertical
+Potentiometer, Bourns, TC33X, Vertical, https://www.bourns.com/pdfs/TC33.pdf
+Potentiometer Bourns TC33X Vertical
+0
+3
+3
+IMURCLibrary
+Potentiometer_Runtron_RM-065_Vertical
+Potentiometer, vertical, Trimmer, RM-065 https://components101.com/sites/default/files/component_datasheet/Preset%20Potentiometer%20%28Trimpot%29.pdf
+Potentiometer Trimmer RM-065
+0
+3
+3
+IMURCLibrary
+TerminalBlock_Xinya_XY308-2.54-4P_1x04_P2.54mm_Horizontal
+Terminal Block Xinya XY308-2.54-4P, 4 pins, pitch 2.54mm, size 10.7x6.5mm, drill diameter 1.2mm, pad diameter 2mm, http://www.xinyaelectronic.com/product/xy308-254, script-generated using https://gitlab.com/kicad/libraries/kicad-footprint-generator/-/tree/master/scripts/TerminalBlock_Xinya
+THT Terminal Block Xinya XY308-2.54-4P pitch 2.54mm size 10.7x6.5mm drill 1.2mm pad 2mm
+0
+4
+4
+IMURCLibrary
+mouse-bite-2.54mm-slot
+
+
+0
+0
+0
+IMURCLibrary
+mouse-bite-5mm-slot
+
+
+0
+0
+0
