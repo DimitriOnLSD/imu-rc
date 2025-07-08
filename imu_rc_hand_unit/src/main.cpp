@@ -1,8 +1,10 @@
 /* DEBUG AND DEVELOPMENT PURPOSE ONLY */
 #define DEBUG
-#define DEV_BOARD
+// #define DEV_BOARD
 
 #include "main.h"
+
+bool resetYPR = false;
 
 // Function to print data to the serial monitor
 void debugPrint(bool printData, double yaw, double pitch, double roll, String data) {
@@ -86,7 +88,7 @@ void setup() {
   setupBattery();
   setupI2C();
   setupOLED();
-  setupMPU6050();
+  setupLSM6DSO();
   setupBLE();
 
   display.clearDisplay();
@@ -359,12 +361,12 @@ void loop() {
         SetLEDStatus("WHITE", "ON");
         break;
       case RESET_COMPLETED:
-        drawText("MPU-6050", 1, -1, 24);
+        drawText("LSM6DSO", 1, -1, 24);
         drawText("reset completed!", 1, -1, 34);
         break;
       case RESET_FAILED:
         drawText("Failed to reset", 1, -1, 24);
-        drawText("MPU-6050.", 1, -1, 34);
+        drawText("LSM6DSO.", 1, -1, 34);
         break;
     }
 
@@ -374,52 +376,55 @@ void loop() {
 
   if ((updateData && clientIsConnected) || (updateData && readDataWithScreen) || resetYPR) {
     // Assure MPU is ready
-    if (!DMPReady)
+    if (!imuReady)
       return;
 
     // Reset MPU if requested
     if (resetYPR) {
       imuTicker.detach();  // Stop the IMU timer
-      currentMenu = resetMPU() ? RESET_COMPLETED : RESET_FAILED;
+      currentMenu = resetLSM() ? RESET_COMPLETED : RESET_FAILED;
       imuTicker.attach(1.0 / UPDATE_RATE_IMU, updateIMU);  // Re-enable IMU timer
       resetYPR = false;
     }
 
-    // Fetch data from the MPU
-    if (mpu.dmpGetCurrentFIFOPacket(FIFOBuffer)) {
-
-      // Get quaternion and gravity
-      mpu.dmpGetQuaternion(&q, FIFOBuffer);
-      mpu.dmpGetGravity(&gravity, &q);
-      mpu.dmpGetYawPitchRoll(ypr, &q, &gravity);
-
-      // Convert yaw, pitch and roll to degrees
-      yaw = ypr[0] * 180 / M_PI;
-      pitch = ypr[1] * 180 / M_PI;
-      roll = ypr[2] * 180 / M_PI;
-
-      // Print data to the serial monitor
+    if (readLSM6DSO()) {
       debugPrint(true, yaw, pitch, roll, dataToSend);
     }
+
     updateData = false;
     readDataWithScreen = false;
   }
 
   if (sendData) {
-    // Assure client is connected
     if (pClient != nullptr && pClient->isConnected()) {
-      // If the car is stopped, apply rotation logic. If not, apply movement logic
+
+      // ROTAÇÃO PARADO
       if (carIsStopped) {
-        if (positiveTilt(pitch) && !negativeTilt(roll) && !positiveTilt(roll)) {
-          motorCommand(0, DUTY_CYCLE_MAX, "LEFT");
+        if (positiveTilt(roll) && abs(roll) >= THRESHOLD_MIN_ROTATE && !negativeTilt(pitch) && !positiveTilt(pitch)) {
+
+          roll = constraintAngle(roll, THRESHOLD_MAX_ROTATE);
+          float baseSpeed = map(abs(roll), THRESHOLD_MIN_ROTATE, THRESHOLD_MAX_ROTATE, DUTY_CYCLE_MIN, DUTY_CYCLE_MAX);
+
+          uint8_t rotateSpeed = constrain((baseSpeed * sensitivity), DUTY_CYCLE_MIN, DUTY_CYCLE_MAX);
+
+          motorCommand(0, rotateSpeed, "LEFT");
           canMoveYAxis = false;
-        } else if (negativeTilt(pitch) && !negativeTilt(roll) && !positiveTilt(roll)) {
-          motorCommand(DUTY_CYCLE_MAX, 0, "RIGHT");
+
+        } else if (negativeTilt(roll) && abs(roll) >= THRESHOLD_MIN_ROTATE && !negativeTilt(pitch) && !positiveTilt(pitch)) {
+
+          roll = constraintAngle(roll, THRESHOLD_MAX_ROTATE);
+          float baseSpeed = map(abs(roll), THRESHOLD_MIN_ROTATE, THRESHOLD_MAX_ROTATE, DUTY_CYCLE_MIN, DUTY_CYCLE_MAX);
+
+          uint8_t rotateSpeed = constrain((baseSpeed * sensitivity), DUTY_CYCLE_MIN, DUTY_CYCLE_MAX);
+
+          motorCommand(rotateSpeed, 0, "RIGHT");
           canMoveYAxis = false;
+
         } else {
           carIsStopped = false;
           canMoveYAxis = true;
         }
+
       } else {
         carIsStopped = true;
         canMoveYAxis = true;
@@ -427,27 +432,37 @@ void loop() {
         motorCommand(0, 0, "STOP");
       }
 
-      // If postive tilt, move forward. If negative tilt, move backward
+      // MOVIMENTO Y (FRENTE / TRÁS) E CURVA (ROLL COMBINADO)
       if (canMoveYAxis) {
-        if (positiveTilt(roll)) {
+        if (negativeTilt(pitch) && abs(pitch) >= THRESHOLD_MIN) {
           carIsStopped = false;
 
-          roll = constraintAngle(roll, THRESHOLD_MAX);
-          uint8_t speed = (uint8_t)map(abs(roll), THRESHOLD_MIN, THRESHOLD_MAX, DUTY_CYCLE_MIN, DUTY_CYCLE_MAX);
-          motorCommand(speed, speed, "REVERSE");
-        } else if (negativeTilt(roll)) {
-          carIsStopped = false;
-
-          roll = constraintAngle(roll, THRESHOLD_MAX);
           pitch = constraintAngle(pitch, THRESHOLD_MAX);
-          uint8_t speed = (uint8_t)map(abs(roll), THRESHOLD_MIN, THRESHOLD_MAX, DUTY_CYCLE_MIN, DUTY_CYCLE_MAX);
-          uint8_t LS = positiveTilt(pitch) ? speed - map(abs(pitch), THRESHOLD_MIN_STEER, THRESHOLD_MAX, 0, speed) : speed;
-          uint8_t RS = negativeTilt(pitch) ? speed - map(abs(pitch), THRESHOLD_MIN_STEER, THRESHOLD_MAX, 0, speed) : speed;
+          float baseSpeed = map(abs(pitch), THRESHOLD_MIN, THRESHOLD_MAX, DUTY_CYCLE_MIN, DUTY_CYCLE_MAX);
+          uint8_t speed = constrain((sensitivity * baseSpeed), DUTY_CYCLE_MIN, DUTY_CYCLE_MAX);
+
+          motorCommand(speed, speed, "REVERSE");
+
+        } else if (positiveTilt(pitch) && abs(pitch) >= THRESHOLD_MIN) {
+          carIsStopped = false;
+
+          pitch = constraintAngle(pitch, THRESHOLD_MAX);
+          roll = constraintAngle(roll, THRESHOLD_MAX);
+
+          float baseSpeed = map(abs(pitch), THRESHOLD_MIN, THRESHOLD_MAX, DUTY_CYCLE_MIN, DUTY_CYCLE_MAX);
+          uint8_t speed = constrain((sensitivity * baseSpeed), DUTY_CYCLE_MIN, DUTY_CYCLE_MAX);
+
+          uint8_t steerDiff = (uint8_t)map(abs(roll), THRESHOLD_MIN_STEER, THRESHOLD_MAX, 0, DUTY_CYCLE_MAX);
+          steerDiff = constrain(steerDiff, 0, speed);
+
+          uint8_t LS = positiveTilt(roll) ? speed - steerDiff : speed;
+          uint8_t RS = negativeTilt(roll) ? speed - steerDiff : speed;
+
           motorCommand(LS, RS, "FORWARD");
         }
       }
 
-      // Send data to the server
+      // ENVIO DE DADOS BLE
       if (pRemoteCharacteristic != nullptr && !dataToSend.isEmpty()) {
         pRemoteCharacteristic->writeValue(dataToSend.c_str(), dataToSend.length());
       }
@@ -461,6 +476,7 @@ void loop() {
         debugPrint(false, 0, 0, 0, "Lost connection to IMU-RC Car.");
       }
     }
+
     sendData = false;
   }
 

@@ -1,0 +1,116 @@
+########################################################
+# Syntax Coloring Map for SparkFun LSM6DS3 IMU Library #
+########################################################
+# Class
+###################################################################
+
+LSM6DS3	KEYWORD1
+LSM6DS3Core	KEYWORD1
+
+###################################################################
+# Methods and Functions
+###################################################################
+
+beginCore	KEYWORD2
+beginSPICore	KEYWORD2
+readRegister	KEYWORD2
+readRegisterInt16	KEYWORD2
+readMultipleRegisters	KEYWORD2
+writeRegister	KEYWORD2
+writeMultipleRegisters	KEYWORD2
+enableEmbeddedFunctions	KEYWORD2
+begin	KEYWORD2
+beginSPI	KEYWORD2
+initialize	KEYWORD2
+setAccelRange	KEYWORD2
+setAccelDataRate	KEYWORD2
+setGyroRange	KEYWORD2
+setBlockDataUpdate	KEYWORD2
+setHighPerfGyro	KEYWORD2
+getAccelRange	KEYWORD2
+getAccelDataRate	KEYWORD2
+getGyroDataRate	KEYWORD2
+getGyroRange	KEYWORD2
+listenDataReady	KEYWORD2
+getAccelFullScale	KEYWORD2
+getAccelHighPerf	KEYWORD2
+readFloatAccelX	KEYWORD2
+readFloatAccelY	KEYWORD2
+readFloatAccelZ	KEYWORD2
+readFloatGyroX	KEYWORD2
+readFloatGyroY	KEYWORD2
+readFloatGyroZ	KEYWORD2
+calcGyro	KEYWORD2
+calcAccel	KEYWORD2
+
+readRawTemp	KEYWORD2
+readTempC	KEYWORD2
+readTempF	KEYWORD2
+
+setInterruptOne	KEYWORD2
+getInterruptOne	KEYWORD2
+setInterruptTwo	KEYWORD2
+configHardOutInt	KEYWORD2
+
+fifoBegin	KEYWORD2
+fifoBeginSettings	KEYWORD2
+setFifoMode	KEYWORD2
+getFifoMode	KEYWORD2
+setFifoDepth	KEYWORD2
+getFifoDepth	KEYWORD2
+setAccelBatchDataRate	KEYWORD2
+getAccelBatchDataRate	KEYWORD2
+setGyroBatchDataRate	KEYWORD2
+getGyroBatchDataRate	KEYWORD2
+fifoClear	KEYWORD2
+fifoRead	KEYWORD2
+getFifoStatus	KEYWORD2
+fifoEnd	KEYWORD2
+
+enablePedometer	KEYWORD2
+getPedometer	KEYWORD2
+getSteps	KEYWORD2
+resetSteps	KEYWORD2
+enableTap	KEYWORD2
+setTapDirPrior	KEYWORD2
+getTapDirPrior	KEYWORD2
+setTapClearOnRead	KEYWORD2
+getTapClearOnRead	KEYWORD2
+clearTapInt	KEYWORD2
+setXThreshold	KEYWORD2
+listenStep	KEYWORD2
+configureTap	KEYWORD2
+
+routeHardInterOne	KEYWORD2
+routeHardInterTwo	KEYWORD2
+setIncrement	KEYWORD2
+softwareReset	KEYWORD2
+clearAllInt	KEYWORD2
+
+
+###################################################################
+# Constants
+###################################################################
+
+I2C_MODE	LITERAL1
+SPI_MODE	LITERAL1
+IMU_SUCCESS	LITERAL1
+IMU_HW_ERROR	LITERAL1
+IMU_NOT_SUPPORTED	LITERAL1
+IMU_GENERIC_ERROR	LITERAL1
+IMU_OUT_OF_BOUNDS	LITERAL1
+IMU_ALL_ONES_WARNING	LITERAL1
+ACCEL_DATA_READY	LITERAL1
+GYRO_DATA_READY	LITERAL1
+TEMP_DATA_READY	LITERAL1
+ALL_DATA_READY	LITERAL1
+BASIC_SETTINGS	LITERAL1
+SOFT_INT_SETTINGS	LITERAL1
+HARD_INT_SETTINGS	LITERAL1
+FIFO_SETTINGS	LITERAL1
+PEDOMETER_SETTINGS	LITERAL1
+TAP_SETTINGS	LITERAL1
+FREE_FALL_SETTINGS	LITERAL1
+SPI_READ_COMMAND	LITERAL1
+DEFAULT_ADDRESS	LITERAL1
+ALT_ADDRESS	LITERAL1

@@ -18,16 +18,18 @@
 #define PIN_BTN_U 16
 #define PIN_BTN_S 17
 #define PIN_BTN_D 18
-#define PIN_BATTERY_READ 17 // ADC2_6
-#define PIN_BATTERY_ENABLE_READ 21
-#define PIN_CHARGER_STATUS 7
+#define PIN_BATTERY_READ 23 // won't work in v1.1
+#define PIN_BATTERY_ENABLE_READ 24 // won't work in v1.1
+#define PIN_CHARGER_STATUS 7 // won't work in v1.1
 #endif
 ///////////////////////////////////////////////////////////////////////////////
-#define THRESHOLD_MIN_STEER 5.0
-#define THRESHOLD_MIN 10.0 // Threshold for the angular position. Variable in Euler angles
-#define THRESHOLD_MAX 40.0
+#define THRESHOLD_MIN_STEER 8.0
+#define THRESHOLD_MIN_ROTATE 12.0 
+#define THRESHOLD_MAX_ROTATE 45.0
+#define THRESHOLD_MIN 20.0
+#define THRESHOLD_MAX 90.0
 ///////////////////////////////////////////////////////////////////////////////
-#define DUTY_CYCLE_MIN 170 // PWM duty cycle
+#define DUTY_CYCLE_MIN 175
 #define DUTY_CYCLE_MAX 255
 
 #include <Arduino.h>
@@ -40,7 +42,7 @@
 #include <BLEClient.h>
 #include <BLEAdvertisedDevice.h>
 #include "I2Cdev.h"
-#include "MPU6050_6Axis_MotionApps20.h"
+#include "SparkFunLSM6DSO.h"
 
 #ifdef DEV_BOARD
 #include <Adafruit_NeoPixel.h>
@@ -65,8 +67,8 @@ bool canMoveYAxis = true;   // Flag to enable movement in the Y-axis
 bool movingXAxis = false;   // Flag to indicate movement in the X-axis
 bool movingYAxis = false;   // Flag to indicate movement in the Y-axis
 float sensitivity = 1.0f;   // Sensitivity for the inertial sensor
-const float sens_max = 2.0f;
-const float sens_min = 0.1f;
+const float sens_max = 1.5f;
+const float sens_min = 1.0f;
 
 // Handheld device variables
 uint8_t battPercentage = 0;               // Battery percentage

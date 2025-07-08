@@ -44,8 +44,37 @@
 #define BATTERY_VOLTAGE_ENABLE_PIN 21 // Pin to enable battery voltage measurement
 #define BATTERY_READ_DELAY 10 // Delay for battery voltage measurement in milliseconds
 
+// Define IR sensor pins
+#define READ_IR_SENSORS_FREQUENCY 50
+#define IR_LED_PIN 18  // PWM IR LED control
+#define IR_RX_FS 4  // Front Sensor
+#define IR_RX_LS 1  // Left Sensor
+#define IR_RX_RS 2  // Right Sensor
+#define IR_RX_BS 5  // Back Sensor
+
+#define PWM_CHANNEL 0
+#define PWM_FREQUENCY 5000 // Frequency for IR LED PWMsss
+#define PWM_RESOLUTION 8 // Resolution for IR LED PWM
+#define PWM_DUTY_CYCLE 255 // Duty cycle for IR LED PWM (50%)
+#define SAMPLE_NUM 10
+#define LIMIT 3920 // Limit for IR sensor readings to determine movement capability
+
 // Uncomment the following line to enable debug messages
 #define DEBUG
+
+// Uncomment the following lines to disable specific features
+// #define ENABLE_BATTERY_MEASUREMENT
+#define ENABLE_IR_SENSORS
+#define ENABLE_MOTORS
+
+// Global variables for prox sensors readings
+uint16_t readingsFS[SAMPLE_NUM] = {0};
+uint16_t readingsLS[SAMPLE_NUM] = {0};
+uint16_t readingsRS[SAMPLE_NUM] = {0};
+uint16_t readingsBS[SAMPLE_NUM] = {0};
+uint8_t sampleIndex = 0;
+unsigned long lastPrintTime = 0;
+bool keepReading = false;
 
 // Global variable to store received data
 String receivedData = "";
@@ -159,6 +188,17 @@ void setupMotorPins() {
   move(0); // Stop all motors initially
 }
 
+void setupIRPins() {
+  pinMode(IR_RX_FS, INPUT);
+  pinMode(IR_RX_LS, INPUT);
+  pinMode(IR_RX_RS, INPUT);
+  pinMode(IR_RX_BS, INPUT);
+
+  ledcAttachPin(IR_LED_PIN, PWM_CHANNEL);
+  ledcSetup(PWM_CHANNEL, PWM_FREQUENCY, PWM_RESOLUTION);
+  ledcWrite(PWM_CHANNEL, PWM_DUTY_CYCLE); 
+}
+
 // Function to configure battery voltage measurement pins
 void setupBatteryPins() {
   pinMode(BATTERY_VOLTAGE_PIN, INPUT);
@@ -178,6 +218,18 @@ uint8_t measureBatteryVoltage() {
   float minVoltage = 2.91;
   float maxVoltage = 3.30;
   return constrain(100.0 * (batteryVoltage - minVoltage) / (maxVoltage - minVoltage), 0, 100);
+}
+
+void sendNotificationToClient(String data) {
+  // Ensure the client is connected before notifying
+  if (pCharacteristic != nullptr) {
+    pCharacteristic->setValue(data.c_str());  // Update the characteristic value
+    pCharacteristic->notify();                // Send notification to the client
+#ifdef DEBUG
+    Serial.print("Notified client: ");
+    Serial.println(data);
+#endif
+  }
 }
 
 void setup() {
@@ -211,79 +263,80 @@ void setup() {
 #endif
 }
 
-void sendNotificationToClient(String data) {
-  // Ensure the client is connected before notifying
-  if (pCharacteristic != nullptr) {
-    pCharacteristic->setValue(data.c_str());  // Update the characteristic value
-    pCharacteristic->notify();                // Send notification to the client
-#ifdef DEBUG
-    Serial.print("Notified client: ");
-    Serial.println(data);
-#endif
-  }
-}
-
 void loop() {
   unsigned long currentTime = millis();
   static unsigned long lastSendTime = 0;
 
-  if (!receivedData.isEmpty()) {  // Check if receivedData is not empty
+  static unsigned long lastPrintTime = 0;
+  static bool canMoveForward = true;
+  static bool canMoveBackward = true;
+
+#ifdef ENABLE_IR_SENSORS
+  if ((currentTime - lastPrintTime > 1000 / READ_IR_SENSORS_FREQUENCY) || keepReading) {
+    lastPrintTime = currentTime;
+    keepReading = true;
+
+    readingsFS[sampleIndex] = analogRead(IR_RX_FS);
+    readingsLS[sampleIndex] = analogRead(IR_RX_LS);
+    readingsRS[sampleIndex] = analogRead(IR_RX_RS);
+    readingsBS[sampleIndex] = analogRead(IR_RX_BS);
+
+    sampleIndex = (sampleIndex + 1) % SAMPLE_NUM;
+
+    uint32_t sumFS = 0, sumLS = 0, sumRS = 0, sumBS = 0;
+    for (int i = 0; i < SAMPLE_NUM; i++) {
+      sumFS += readingsFS[i];
+      sumLS += readingsLS[i];
+      sumRS += readingsRS[i];
+      sumBS += readingsBS[i];
+    }
+
+    uint16_t avgFS = sumFS / SAMPLE_NUM;
+    uint16_t avgBS = sumBS / SAMPLE_NUM;
+
+    canMoveForward = avgFS >= LIMIT ? true : false;
+    canMoveBackward = avgBS >= LIMIT ? true : false;
+
+    keepReading = false; // Reset keepReading flag
+
+#ifdef DEBUG
+    Serial.print("FS: "); Serial.print(avgFS);
+    Serial.print("\tBS: "); Serial.print(avgBS);
+    Serial.print("\tCanForward: "); Serial.print(canMoveForward);
+    Serial.print("\tCanBackward: "); Serial.println(canMoveBackward);
+#endif
+  }
+#endif
+
+#ifdef ENABLE_MOTORS
+  if (!receivedData.isEmpty()) {
 #ifdef DEBUG
     Serial.println("Processing command: " + receivedData);
 #endif
-    // Motor control logic
-    if (function.equals("FORWARD")) {
-      move(1);
-    } else if (function.equals("REVERSE")) {
-      move(2);
-    } else if (function.equals("RIGHT")) {
-      move(3);
-    } else if (function.equals("LEFT")) {
-      move(4);
-    } else if (function.equals("STOP")) {
-      move(0);
-    } else {
+    if      (function.equals("FORWARD")) { if (!canMoveForward)  move(1); else move(0); } 
+    else if (function.equals("REVERSE")) { if (!canMoveBackward) move(2); else move(0); } 
+    else if (function.equals("RIGHT"))   { move(3); } 
+    else if (function.equals("LEFT"))    { move(4); } 
+    else if (function.equals("STOP"))    { move(0); } 
+    else {
 #ifdef DEBUG
       Serial.println("Invalid command received!");
 #endif
       sendNotificationToClient("Invalid command");
     }
-    receivedData = "";  // Clear after processing to avoid re-triggering
+
+    receivedData = "";
   }
-  
+#endif
+
+#ifdef ENABLE_BATTERY_MEASUREMENT
   if (currentTime - lastSendTime > 1 / SEND_BATTERY_FREQUENCY * (1000 - BATTERY_READ_DELAY)) {
-    enableBatteryVoltageMeasurement(); // Enable battery voltage measurement
+    enableBatteryVoltageMeasurement();
     if (currentTime - lastSendTime > 1 / SEND_BATTERY_FREQUENCY * 1000) {
       lastSendTime = currentTime;
-      batteryPercentage = measureBatteryVoltage(); // Measure battery voltage and get percentage
-      sendNotificationToClient(String(batteryPercentage, 0)); // Send battery percentage to the client
+      batteryPercentage = measureBatteryVoltage();
+      sendNotificationToClient(String(batteryPercentage, 0));
     }
   }
-  
-  // future development
-
-  // uint8_t command;
-  // switch(command) {
-  //   case 0: // STOP
-  //     move(0);
-  //     break;
-  //   case 1: // FORWARD
-  //     move(1);
-  //     break;
-  //   case 2: // REVERSE
-  //     move(2);
-  //     break;
-  //   case 3: // RIGHT
-  //     move(3);
-  //     break;
-  //   case 4: // LEFT
-  //     move(4);
-  //     break;
-  //   case 5: // REQUEST BATTERY
-  //     sendNotificationToClient(String(batteryPercentage, 0));
-  //     break;
-  //   default:
-  //     sendNotificationToClient("Invalid command");
-  //     break;
-  // }
+#endif
 }

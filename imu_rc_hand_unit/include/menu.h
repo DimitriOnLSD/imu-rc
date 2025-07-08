@@ -25,8 +25,8 @@
 #define RSSI_MIN 175
 #define RSSI_MAX 215
 ///////////////////////////////////////////////////////////////////////////////
-#define SNSV_NUM_BARS 20
-#define SNSV_BAR_POS_X 16
+#define SNSV_NUM_BARS 5
+#define SNSV_BAR_POS_X 52
 #define SNSV_BAR_POS_Y 48
 #define SNSV_BAR_WIDTH 4
 #define SNSV_BAR_SPACING 1

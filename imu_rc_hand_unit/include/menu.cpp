@@ -28,7 +28,7 @@ void drawText(String text, int size, int x, int y) {
   display.getTextBounds(text.c_str(), 0, 0, &x1, &y1, &w, &h);
   // if x or y is -1, center the text
   int xPos = x == -1 ? (OLED_SCREEN_WIDTH - w) / 2 : x;
-  int yPos = y == -1 ? (OLED_SCREEN_HEIGHT - h) / 2 : y;
+  int yPos = y == -1 ? (OLED_SCREEN_HEIGHT - h) / 2 : y;  
 
   display.setCursor(xPos, yPos);
   display.print(text);
@@ -36,12 +36,12 @@ void drawText(String text, int size, int x, int y) {
 
 // Draw sensitivity bar
 void drawSensitivityBar(float sensitivity) {
-  sensitivity *= 10;
-  for (int i = 0; i < 20; i++) {
+  sensitivity = 8 * sensitivity - 7;
+  for (int i = 0; i < SNSV_NUM_BARS; i++) {
     if (i < sensitivity) {
-      display.fillRect(SNSV_BAR_POS_X + (SNSV_BAR_WIDTH + SNSV_BAR_SPACING) * i, SNSV_BAR_POS_Y - ((SNSV_BAR_WIDTH - 2) + i), SNSV_BAR_WIDTH, (SNSV_BAR_WIDTH - 2) + i, SSD1306_WHITE);
+      display.fillRect(SNSV_BAR_POS_X + (SNSV_BAR_WIDTH + SNSV_BAR_SPACING) * i, SNSV_BAR_POS_Y - ((SNSV_BAR_WIDTH - 2) + i), SNSV_BAR_WIDTH, 4 * (SNSV_BAR_WIDTH - 2) + i, SSD1306_WHITE);
     } else {
-      display.drawRect(SNSV_BAR_POS_X + (SNSV_BAR_WIDTH + SNSV_BAR_SPACING) * i, SNSV_BAR_POS_Y - ((SNSV_BAR_WIDTH - 2) + i), SNSV_BAR_WIDTH, (SNSV_BAR_WIDTH - 2) + i, SSD1306_WHITE);
+      display.drawRect(SNSV_BAR_POS_X + (SNSV_BAR_WIDTH + SNSV_BAR_SPACING) * i, SNSV_BAR_POS_Y - ((SNSV_BAR_WIDTH - 2) + i), SNSV_BAR_WIDTH, 4 * (SNSV_BAR_WIDTH - 2) + i, SSD1306_WHITE);
     }
   }
 }

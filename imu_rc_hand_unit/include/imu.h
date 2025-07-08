@@ -1,35 +1,29 @@
 #ifndef IMU_H
 #define IMU_H
 
-MPU6050 mpu;
+#include "SparkFunLSM6DSO.h"
+#include "Wire.h"
 
-/*---MPU6050 Control/Status Variables---*/
-bool DMPReady = false;  // Set true if DMP init was successful
-bool resetYPR = false;  // Flag for resetting Yaw/Pitch/Roll
-uint8_t MPUIntStatus;   // Holds actual interrupt status byte from MPU
-uint8_t devStatus;      // Return status after each device operation (0 = success, !0 = error)
-uint16_t packetSize;    // Expected DMP packet size (default is 42 bytes)
-uint8_t FIFOBuffer[64]; // FIFO storage buffer
+// LSM6DSO sensor object (using I2C with default address 0x6B)
+LSM6DSO imu;
 
-/*---Orientation/Motion Variables---*/
-Quaternion q;        // [w, x, y, z]         Quaternion container
-VectorInt16 aa;      // [x, y, z]            Accel sensor measurements
-VectorInt16 gy;      // [x, y, z]            Gyro sensor measurements
-VectorInt16 aaReal;  // [x, y, z]            Gravity-free accel sensor measurements
-VectorInt16 aaWorld; // [x, y, z]            World-frame accel sensor measurements
-VectorFloat gravity; // [x, y, z]            Gravity vector
-float euler[3];      // [psi, theta, phi]    Euler angle container
-float ypr[3];        // [yaw, pitch, roll]   Yaw/Pitch/Roll container and gravity vector
-double yaw;
-double pitch;
-double roll;
+// Sensor status
+bool imuReady = false;
 
-/*-Packet structure for InvenSense teapot demo-*/
-uint8_t teapotPacket[14] = {'$', 0x02, 0, 0, 0, 0, 0, 0, 0, 0, 0x00, 0x00, '\r', '\n'};
+// Reading variables
+float accelX, accelY, accelZ;
+float gyroX, gyroY, gyroZ;
+float tempF;
 
-void setupMPU6050();
-void DMPDataReady();
-bool resetMPU();
+// Yaw, pitch, and roll (manually calculated if desired)
+double yaw = 0.0;
+double pitch = 0.0;
+double roll = 0.0;
+
+// Sensor initialization
+void setupLSM6DSO();
+bool resetLSM();
+bool readLSM6DSO();
 
 #include "imu.cpp"
 
