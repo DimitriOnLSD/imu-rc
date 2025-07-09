@@ -14,10 +14,10 @@
 #define PIN_RGB_RED 6
 #define PIN_RGB_GREEN 5
 #define PIN_RGB_BLUE 4
-#define PIN_BTN_B 15
-#define PIN_BTN_U 16
+#define PIN_BTN_B 18
+#define PIN_BTN_U 15
 #define PIN_BTN_S 17
-#define PIN_BTN_D 18
+#define PIN_BTN_D 16
 #define PIN_BATTERY_READ 23 // won't work in v1.1
 #define PIN_BATTERY_ENABLE_READ 24 // won't work in v1.1
 #define PIN_CHARGER_STATUS 7 // won't work in v1.1
@@ -72,10 +72,7 @@ const float sens_min = 1.0f;
 
 // Handheld device variables
 uint8_t battPercentage = 0;               // Battery percentage
-volatile bool buttonPress = false;        // Flag for any button press
-volatile bool buttonPressed[4] = {false}; // Flags for specific button presses
 bool readDataWithScreen = false;          // Flag to read data with the screen
-char input;                               // Input character
 
 void debugPrint(bool printData, double yaw, double pitch, double roll, String data);
 void setupSerial();

@@ -34,14 +34,21 @@ void drawText(String text, int size, int x, int y) {
   display.print(text);
 }
 
-// Draw sensitivity bar
+// Draw the sensitivity bar (0 to 5 levels)
 void drawSensitivityBar(float sensitivity) {
-  sensitivity = 8 * sensitivity - 7;
+  int level = (int)((sensitivity - 1.0f) * 10.0f + 0.5f); // Apply small offset to avoid rounding issues
+  level = constrain(level, 0, SNSV_NUM_BARS);       // Ensure the level is within range
+
   for (int i = 0; i < SNSV_NUM_BARS; i++) {
-    if (i < sensitivity) {
-      display.fillRect(SNSV_BAR_POS_X + (SNSV_BAR_WIDTH + SNSV_BAR_SPACING) * i, SNSV_BAR_POS_Y - ((SNSV_BAR_WIDTH - 2) + i), SNSV_BAR_WIDTH, 4 * (SNSV_BAR_WIDTH - 2) + i, SSD1306_WHITE);
+    int x = SNSV_BAR_POS_X + (SNSV_BAR_WIDTH + SNSV_BAR_SPACING) * i;
+    int y = SNSV_BAR_POS_Y - ((SNSV_BAR_WIDTH - 2) + 2 * i);
+    int h = 3 * (SNSV_BAR_WIDTH - 2) + 2 * i;
+    int w = SNSV_BAR_WIDTH;
+
+    if (i < level) {
+      display.fillRect(x, y, w, h, SSD1306_WHITE);  // Filled bar
     } else {
-      display.drawRect(SNSV_BAR_POS_X + (SNSV_BAR_WIDTH + SNSV_BAR_SPACING) * i, SNSV_BAR_POS_Y - ((SNSV_BAR_WIDTH - 2) + i), SNSV_BAR_WIDTH, 4 * (SNSV_BAR_WIDTH - 2) + i, SSD1306_WHITE);
+      display.drawRect(x, y, w, h, SSD1306_WHITE);  // Empty bar
     }
   }
 }

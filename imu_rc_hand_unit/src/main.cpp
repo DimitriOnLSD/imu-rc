@@ -85,7 +85,9 @@ void setup() {
   setupFNButtons();
   setupSerial();
   setupLED();
+#ifdef ENABLE_BATTERY_READ
   setupBattery();
+#endif
   setupI2C();
   setupOLED();
   setupLSM6DSO();
@@ -97,16 +99,17 @@ void setup() {
 }
 
 void loop() {
+  
   if (buttonPress) {
     for (int i = 0; i < 4; i++) {
       if (buttonPressed[i]) {
         switch (i) {
-          case 0: input = 'w'; attachInterrupt(digitalPinToInterrupt(PIN_BTN_U), handleUP, FALLING); break;
-          case 1: input = 's'; attachInterrupt(digitalPinToInterrupt(PIN_BTN_D), handleDN, FALLING); break;
-          case 2: input = 32;  attachInterrupt(digitalPinToInterrupt(PIN_BTN_S), handleSL, FALLING); break;
-          case 3: input = 9;   attachInterrupt(digitalPinToInterrupt(PIN_BTN_B), handleBK, FALLING); break;
+          case 0: input = 'w'; break;
+          case 1: input = 's'; break;
+          case 2: input = 32;  break;
+          case 3: input = 9;   break;
         }
-        buttonPressed[i] = false;  // Reset flag
+        buttonPressed[i] = false;
       }
     }
     buttonPress = false;
@@ -114,10 +117,17 @@ void loop() {
   } else if (Serial.available()) {
     input = Serial.read();
     updateDisplay = true;
-  } else {
+  } else if (!buttonPress) {
     input = 0;
   }
 
+  // Always check if buttons have been released and reattach their interrupts
+  if (digitalRead(PIN_BTN_U) == HIGH) attachInterrupt(digitalPinToInterrupt(PIN_BTN_U), handleUP, FALLING);
+  if (digitalRead(PIN_BTN_D) == HIGH) attachInterrupt(digitalPinToInterrupt(PIN_BTN_D), handleDN, FALLING);
+  if (digitalRead(PIN_BTN_S) == HIGH) attachInterrupt(digitalPinToInterrupt(PIN_BTN_S), handleSL, FALLING);
+  if (digitalRead(PIN_BTN_B) == HIGH) attachInterrupt(digitalPinToInterrupt(PIN_BTN_B), handleBK, FALLING);
+
+#ifdef ENABLE_BATTERY_READ
   if (updateBattery) {
     // Read battery level
     uint16_t battData = enableBattRead();
@@ -133,6 +143,7 @@ void loop() {
     // Check if the battery is low
     updateBattery = false;
   }
+#endif
 
   if (updateRSSI && clientIsConnected) {
     RSSI = pClient->getRssi();

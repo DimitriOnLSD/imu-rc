@@ -26,10 +26,10 @@
 #define RSSI_MAX 215
 ///////////////////////////////////////////////////////////////////////////////
 #define SNSV_NUM_BARS 5
-#define SNSV_BAR_POS_X 52
-#define SNSV_BAR_POS_Y 48
-#define SNSV_BAR_WIDTH 4
-#define SNSV_BAR_SPACING 1
+#define SNSV_BAR_POS_X 42
+#define SNSV_BAR_POS_Y 42
+#define SNSV_BAR_WIDTH 6
+#define SNSV_BAR_SPACING 2
 ///////////////////////////////////////////////////////////////////////////////
 #define TOP_BAR_LINE_X 0  // Pixels
 #define TOP_BAR_LINE_Y 14
@@ -38,7 +38,7 @@
 
 Adafruit_SSD1306 display(OLED_SCREEN_WIDTH, OLED_SCREEN_HEIGHT, &Wire, OLED_RESET);
 
-uint8_t barsBattery = 0;
+uint8_t barsBattery = 4; // Default battery bars
 uint8_t RSSI = 0;
 uint8_t RSSIbars = 0;
 
