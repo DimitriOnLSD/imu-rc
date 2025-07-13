@@ -13,7 +13,6 @@ bool imuReady = false;
 // Reading variables
 float accelX, accelY, accelZ;
 float gyroX, gyroY, gyroZ;
-float tempF;
 
 // Yaw, pitch, and roll (manually calculated if desired)
 double yaw = 0.0;

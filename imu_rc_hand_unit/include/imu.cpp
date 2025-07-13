@@ -46,12 +46,6 @@ bool readLSM6DSO() {
   accelY = imu.readFloatAccelY();
   accelZ = imu.readFloatAccelZ();
 
-  gyroX = imu.readFloatGyroX();
-  gyroY = imu.readFloatGyroY();
-  gyroZ = imu.readFloatGyroZ();
-
-  tempF = imu.readTempF();
-
   pitch = atan2(accelX, sqrt(accelY * accelY + accelZ * accelZ)) * 180 / PI;
   roll  = atan2(accelY, accelZ) * 180 / PI;
   yaw = 0.0;
